@@ -1,0 +1,2 @@
+# Local secrets for `npm run preview` / `next dev`. Copy to .dev.vars.
+GITHUB_TOKEN=

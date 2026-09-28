@@ -24,6 +24,27 @@ npm run dev                  # http://localhost:3000
 | `PORTFOLIO_EXCLUDE` | – | Comma-separated repo names to hide |
 | `PORTFOLIO_INCLUDE_FORKS` | `false` | Show forked repos |
 
-## Deploy
+## Deploy to Cloudflare
 
-Deploy to any host that supports Next.js ISR, such as Vercel (import the repo; it needs no extra config). Set `GITHUB_TOKEN` in the host's environment for reliable rate limits.
+The site runs on Cloudflare Workers through the [OpenNext Cloudflare adapter](https://opennext.js.org/cloudflare). Rendered pages are cached in Workers KV, and they regenerate in the background once they're an hour old.
+
+### Option A: Git integration (auto-deploy on push)
+
+1. In the Cloudflare dashboard go to **Workers & Pages → Create → Import a repository** and pick this repo.
+2. Set the build settings:
+   - Build command: `npx opennextjs-cloudflare build`
+   - Deploy command: `npx opennextjs-cloudflare deploy`
+3. Under **Settings → Variables and Secrets**, add `GITHUB_TOKEN` as a secret (optional, but recommended). Add it as a **build** variable too, because the page is also rendered once during the build.
+4. Attach your domain under **Settings → Domains & Routes**.
+
+### Option B: From your machine
+
+```bash
+npx wrangler login
+npm run deploy
+npx wrangler secret put GITHUB_TOKEN   # optional
+```
+
+On the first deploy wrangler creates the `NEXT_INC_CACHE_KV` namespace automatically. Non-secret settings (`GITHUB_USERNAME`, `PORTFOLIO_EXCLUDE`, `PORTFOLIO_INCLUDE_FORKS`) live under `vars` in `wrangler.jsonc`.
+
+To test the Workers build locally, run `npm run preview` (put secrets in `.dev.vars`; see `.dev.vars.example`).
