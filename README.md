@@ -31,9 +31,10 @@ The site runs on Cloudflare Workers through the [OpenNext Cloudflare adapter](ht
 ### Option A: Git integration (auto-deploy on push)
 
 1. In the Cloudflare dashboard go to **Workers & Pages → Create → Import a repository** and pick this repo.
-2. Set the build settings:
-   - Build command: `npx opennextjs-cloudflare build`
-   - Deploy command: `npx opennextjs-cloudflare deploy`
+2. Under **Settings → Build**, set:
+   - Build command: `npx opennextjs-cloudflare build` (**required**; without it the deploy fails with "Could not detect a directory containing static files")
+   - Deploy command: `npx wrangler deploy` (the default is fine; wrangler detects OpenNext and runs `opennextjs-cloudflare deploy`)
+   - Production branch: the branch that contains this code (e.g. `main`)
 3. Under **Settings → Variables and Secrets**, add `GITHUB_TOKEN` as a secret (optional, but recommended). Add it as a **build** variable too, because the page is also rendered once during the build.
 4. Attach your domain under **Settings → Domains & Routes**.
 
