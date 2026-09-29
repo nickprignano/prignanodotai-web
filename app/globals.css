@@ -8,7 +8,7 @@
   --active: #1f9d55;
   --chip: #eef3fe;
   --chip-fg: #2451b3;
-  --shot-bg: linear-gradient(135deg, #e8edf5, #dfe6f1);
+  --shot-bg: linear-gradient(135deg, #1b2230, #121821);
   --slide-w: min(1080px, calc(100vw - 96px));
 }
 
@@ -103,14 +103,13 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
 .slide[aria-current="true"] { opacity: 1; transform: none; }
 
 .shot { display: block; position: relative; min-height: 0; background: var(--shot-bg); overflow: hidden; }
-.shot img {
+.art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.screenshot {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: top center;
   opacity: 0; transition: opacity 400ms ease;
 }
-/* Logos and icons: centred at up to their natural size, never stretched. */
-.shot img.contain { width: auto; height: auto; max-width: 70%; max-height: 70%; margin: auto; object-fit: contain; }
-.shot img.ready { opacity: 1; }
+.screenshot.ready { opacity: 1; }
 
 .info { display: flex; flex-direction: column; gap: 12px; padding: clamp(16px, 3vh, 28px); min-height: 0; overflow: hidden; }
 .info-head { display: flex; flex-direction: column; gap: 2px; }
@@ -154,7 +153,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .slide, .shot img, .dot { transition: none; }
+  .slide, .screenshot, .dot { transition: none; }
 }
 
 /* Narrow screens: image on top, text below, both inside the viewport. */
