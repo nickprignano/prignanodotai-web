@@ -58,6 +58,9 @@ function ghFetch(path: string): Promise<Response> {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
+    // GitHub rejects requests without a User-Agent, and unlike Node,
+    // the Cloudflare Workers runtime doesn't add one.
+    "User-Agent": "prignanodotai-web",
   };
   const token = process.env.GITHUB_TOKEN?.trim();
   if (token) headers.Authorization = `Bearer ${token}`;
