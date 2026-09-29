@@ -1,13 +1,15 @@
 # prignanodotai-web
 
-A personal portfolio site generated from GitHub. It lists public repos, most recently pushed first, and refreshes itself automatically.
+A personal portfolio site generated from GitHub. It shows public repos in a full-screen carousel, most recently pushed first, and refreshes itself automatically.
 
 ## How it works
 
 - `lib/github.ts` fetches the profile and all public repos for `GITHUB_USERNAME` from the GitHub REST API.
 - It filters out forks, archived repos, the `<username>/<username>` profile-README repo and anything in `PORTFOLIO_EXCLUDE`, then sorts by `pushed_at` (newest first).
+- For each repo it also fetches the README. The first prose paragraphs become the description, and the first non-badge image becomes the project image. Without a README image, GitHub's generated social card is used.
+- `app/carousel.tsx` shows one project at a time in a page that never scrolls vertically. The mouse wheel, arrow keys, swipes, the arrow buttons and the dots all move between projects. Images load only as their slide comes near.
 - `app/page.tsx` renders the list with Next.js Incremental Static Regeneration (`revalidate = 3600`). The page is served statically and rebuilt in the background at most once an hour, so new activity shows up without redeploying.
-- Repo metadata comes straight from GitHub, so edit a repo's **description**, **website** (shown as "Live ↗") and **topics** on GitHub to change how it appears here.
+- Everything comes straight from GitHub. To change how a project appears, edit its **README** (opening paragraph and first image), **website** (shown as "Live ↗") and **topics**. To choose a project's image, put a screenshot near the top of its README.
 
 ## Development
 
@@ -23,6 +25,7 @@ npm run dev                  # http://localhost:3000
 | `GITHUB_TOKEN` | – | Optional; raises the API rate limit (no scopes needed) |
 | `PORTFOLIO_EXCLUDE` | – | Comma-separated repo names to hide |
 | `PORTFOLIO_INCLUDE_FORKS` | `false` | Show forked repos |
+| `PORTFOLIO_LIMIT` | `24` | Max projects shown. Each costs one README request, and Cloudflare's free plan allows 50 outbound requests per render |
 
 ## Deploy to Cloudflare
 

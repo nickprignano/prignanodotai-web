@@ -20,7 +20,8 @@
   "vars": {
     "GITHUB_USERNAME": "nickprignano",
     "PORTFOLIO_EXCLUDE": "",
-    "PORTFOLIO_INCLUDE_FORKS": "false"
+    "PORTFOLIO_INCLUDE_FORKS": "false",
+    "PORTFOLIO_LIMIT": "24"
   },
   "observability": { "enabled": true }
 }
