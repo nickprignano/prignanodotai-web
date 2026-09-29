@@ -32,9 +32,11 @@ The site runs on Cloudflare Workers through the [OpenNext Cloudflare adapter](ht
 
 1. In the Cloudflare dashboard go to **Workers & Pages → Create → Import a repository** and pick this repo.
 2. Under **Settings → Build**, set:
-   - Build command: `npx opennextjs-cloudflare build` (**required**; without it the deploy fails with "Could not detect a directory containing static files")
-   - Deploy command: `npx wrangler deploy` (the default is fine; wrangler detects OpenNext and runs `opennextjs-cloudflare deploy`)
-   - Production branch: the branch that contains this code (e.g. `main`)
+   - Build command: `npm run build:cf`
+   - Deploy command: `npm run deploy`
+   - Production branch: `main`
+
+   `npm run deploy` uploads the Worker first, which makes wrangler create the KV namespace on the first deploy. Then it fills the KV cache with the pre-rendered page. Don't use the default `npx wrangler deploy`: it hands off to `opennextjs-cloudflare deploy`, which fills the cache *before* uploading, so the first deploy fails with "No KV namespace ID found for binding NEXT_INC_CACHE_KV".
 3. Under **Settings → Variables and Secrets**, add `GITHUB_TOKEN` as a secret (optional, but recommended). Add it as a **build** variable too, because the page is also rendered once during the build.
 4. Attach your domain under **Settings → Domains & Routes**.
 
@@ -42,7 +44,7 @@ The site runs on Cloudflare Workers through the [OpenNext Cloudflare adapter](ht
 
 ```bash
 npx wrangler login
-npm run deploy
+npm run build:cf && npm run deploy
 npx wrangler secret put GITHUB_TOKEN   # optional
 ```
 
