@@ -6,10 +6,11 @@ A personal portfolio site generated from GitHub. It shows public repos in a full
 
 - `lib/github.ts` fetches the profile and all public repos for `GITHUB_USERNAME` from the GitHub REST API.
 - It filters out forks, archived repos, the `<username>/<username>` profile-README repo and anything in `PORTFOLIO_EXCLUDE`, then sorts by `pushed_at` (newest first).
-- For each repo it also fetches the README. The first prose paragraphs become the description, and the first non-badge image becomes the project image. Without a README image, GitHub's generated social card is used.
+- For each repo it also fetches the README. Its opening prose paragraphs become the description.
+- Each project gets a generated artwork (`app/project-art.tsx`): an abstract flow-field piece drawn on a canvas, seeded by the repo name and coloured by its language. It draws itself in the first time you land on the slide. If the README contains a real screenshot (the first non-badge image, at least 800px wide and landscape), that is shown instead.
 - `app/carousel.tsx` shows one project at a time in a page that never scrolls vertically. The mouse wheel, arrow keys, swipes, the arrow buttons and the dots all move between projects. Images load only as their slide comes near.
 - `app/page.tsx` renders the list with Next.js Incremental Static Regeneration (`revalidate = 3600`). The page is served statically and rebuilt in the background at most once an hour, so new activity shows up without redeploying.
-- Everything comes straight from GitHub. To change how a project appears, edit its **README** (opening paragraph and first image), **website** (shown as "Live ↗") and **topics**. To choose a project's image, put a screenshot near the top of its README.
+- Everything comes straight from GitHub. To change how a project appears, edit its **README** (opening paragraph, plus a screenshot if you want one instead of the artwork), **website** (shown as "Live ↗") and **topics**.
 
 ## Development
 

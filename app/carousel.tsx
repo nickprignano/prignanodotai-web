@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Repo } from "@/lib/github";
 import { formatDate, languageColor } from "@/lib/format";
+import ProjectArt from "./project-art";
 
 type Slide = Repo & { updated: string; active: boolean };
 
@@ -98,7 +99,12 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
             aria-current={i === index}
           >
             <a className="shot" href={repo.homepage ?? repo.url} tabIndex={-1} aria-hidden>
-              {loaded.has(i) && <ProjectImage src={repo.image} fallback={fallbackImage(repo)} />}
+              <ProjectArt
+                seed={repo.fullName}
+                color={repo.language ? languageColor(repo.language) : null}
+                animate={i === index}
+              />
+              {repo.image && loaded.has(i) && <Screenshot src={repo.image} />}
             </a>
 
             <div className="info">
@@ -177,40 +183,32 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
   );
 }
 
-function fallbackImage(repo: Repo) {
-  return `https://opengraph.githubassets.com/1/${repo.fullName}`;
-}
-
-function ProjectImage({ src, fallback }: { src: string; fallback: string }) {
-  const [current, setCurrent] = useState(src);
-  const [ready, setReady] = useState(false);
-  const [fit, setFit] = useState<"cover" | "contain">("cover");
+// A README image replaces the artwork only when it looks like a real
+// screenshot (large and landscape); logos and icons are skipped.
+function Screenshot({ src }: { src: string }) {
+  const [show, setShow] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
 
-  const onReady = () => {
+  const check = () => {
     const img = ref.current;
-    if (!img) return;
-    // Logos and icons look wrong cropped; show them whole instead.
-    const small = img.naturalWidth < 640 || img.naturalWidth / img.naturalHeight < 1.15;
-    setFit(small ? "contain" : "cover");
-    setReady(true);
+    if (img) setShow(img.naturalWidth >= 800 && img.naturalWidth / img.naturalHeight >= 1.2);
   };
 
   // A server-rendered image can finish loading before React attaches onLoad.
   useEffect(() => {
-    if (ref.current?.complete && ref.current.naturalWidth > 0) onReady();
+    if (ref.current?.complete && ref.current.naturalWidth > 0) check();
   }, []);
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       ref={ref}
-      src={current}
+      src={src}
       alt=""
       decoding="async"
-      className={[fit, ready && "ready"].filter(Boolean).join(" ")}
-      onLoad={onReady}
-      onError={() => current !== fallback && setCurrent(fallback)}
+      className={show ? "screenshot ready" : "screenshot"}
+      onLoad={check}
+      onError={() => setShow(false)}
     />
   );
 }

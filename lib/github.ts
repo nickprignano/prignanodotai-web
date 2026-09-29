@@ -11,8 +11,8 @@ export type Repo = {
   fullName: string;
   /** Summary from the README, falling back to the repo's GitHub description. */
   description: string | null;
-  /** First non-badge image in the README, else GitHub's generated social card. */
-  image: string;
+  /** First non-badge image in the README; shown over the generated artwork if it's a screenshot. */
+  image: string | null;
   url: string;
   homepage: string | null;
   language: string | null;
@@ -136,7 +136,7 @@ export async function getRepos(username = getUsername()): Promise<Repo[]> {
         name: r.name,
         fullName: r.full_name,
         description: readme?.description ?? r.description,
-        image: readme?.image ?? `https://opengraph.githubassets.com/1/${r.full_name}`,
+        image: readme?.image ?? null,
         url: r.html_url,
         homepage: r.homepage || null,
         language: r.language,
