@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "prignanodotai-web",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    // Lets the worker call itself to regenerate pages in the background.
+    // Must match "name" above.
+    { "binding": "WORKER_SELF_REFERENCE", "service": "prignanodotai-web" }
+  ],
+  "kv_namespaces": [
+    // No id needed: wrangler creates the namespace on first deploy.
+    { "binding": "NEXT_INC_CACHE_KV" }
+  ],
+  "vars": {
+    "GITHUB_USERNAME": "nickprignano",
+    "PORTFOLIO_EXCLUDE": "",
+    "PORTFOLIO_INCLUDE_FORKS": "false"
+  },
+  "observability": { "enabled": true }
+}
