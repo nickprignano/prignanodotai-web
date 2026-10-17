@@ -109,6 +109,7 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
 
             <div className="info">
               <div className="info-head">
+                {repo.featured && <span className="featured">Featured research</span>}
                 <h2>
                   <a href={repo.url}>{repo.name}</a>
                 </h2>

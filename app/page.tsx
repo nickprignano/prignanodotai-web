@@ -55,7 +55,7 @@ export default async function Home() {
         <Carousel slides={slides} />
       )}
 
-      <footer>Projects from GitHub, most recently active first · refreshed hourly</footer>
+      <footer>Featured research first, then projects by recent activity · refreshed hourly from GitHub</footer>
     </main>
   );
 }
