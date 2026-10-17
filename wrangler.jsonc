@@ -23,6 +23,7 @@
   ],
   "vars": {
     "GITHUB_USERNAME": "nickprignano",
+    "PORTFOLIO_FEATURED": "avd-landing-zone,nerdio-hcl",
     "PORTFOLIO_EXCLUDE": "",
     "PORTFOLIO_INCLUDE_FORKS": "false",
     "PORTFOLIO_LIMIT": "24"
@@ -34,6 +35,7 @@
   "previews": {
     "vars": {
       "GITHUB_USERNAME": "nickprignano",
+      "PORTFOLIO_FEATURED": "avd-landing-zone,nerdio-hcl",
       "PORTFOLIO_EXCLUDE": "",
       "PORTFOLIO_INCLUDE_FORKS": "false",
       "PORTFOLIO_LIMIT": "24"

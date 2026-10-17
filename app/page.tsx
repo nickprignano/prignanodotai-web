@@ -43,8 +43,9 @@ export default async function Home() {
           {profile?.bio && <p className="bio">{profile.bio}</p>}
         </div>
         <nav className="links">
+          <a href="/resume">Resume</a>
+          <a href="https://blog.prignano.ai">Blog</a>
           <a href={profile?.url ?? `https://github.com/${username}`}>GitHub</a>
-          {profile?.blog && <a href={profile.blog.startsWith("http") ? profile.blog : `https://${profile.blog}`}>Website</a>}
         </nav>
       </header>
 
@@ -54,7 +55,7 @@ export default async function Home() {
         <Carousel slides={slides} />
       )}
 
-      <footer>Projects from GitHub, most recently active first · refreshed hourly</footer>
+      <footer>Featured research first, then projects by recent activity · refreshed hourly from GitHub</footer>
     </main>
   );
 }

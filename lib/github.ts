@@ -21,6 +21,8 @@ export type Repo = {
   forks: number;
   isFork: boolean;
   pushedAt: string;
+  /** Listed in PORTFOLIO_FEATURED: pinned to the front and labelled as featured research. */
+  featured: boolean;
 };
 
 export type Profile = {
@@ -49,6 +51,14 @@ type ApiRepo = {
   private: boolean;
   pushed_at: string;
 };
+
+/** Repo names from PORTFOLIO_FEATURED, lowercased, in the order they should appear. */
+function getFeatured(): string[] {
+  return (process.env.PORTFOLIO_FEATURED ?? "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+}
 
 export function getUsername(): string {
   return process.env.GITHUB_USERNAME?.trim() || "nickprignano";
@@ -112,6 +122,12 @@ export async function getRepos(username = getUsername()): Promise<Repo[]> {
   // Each repo costs one extra request for its README. Cloudflare's free plan
   // allows 50 outbound requests per render, so keep this comfortably below it.
   const limit = Number(process.env.PORTFOLIO_LIMIT) || 24;
+  const featured = getFeatured();
+  // Featured repos come first, in the order listed; the rest follow by recent activity.
+  const rank = (name: string) => {
+    const i = featured.indexOf(name.toLowerCase());
+    return i === -1 ? featured.length : i;
+  };
 
   const all: ApiRepo[] = [];
   for (let page = 1; page <= 10; page++) {
@@ -128,7 +144,7 @@ export async function getRepos(username = getUsername()): Promise<Repo[]> {
     // The special <username>/<username> repo is the profile README, not a project.
     .filter((r) => r.name.toLowerCase() !== username.toLowerCase())
     .filter((r) => !exclude.has(r.name.toLowerCase()))
-    .sort((a, b) => Date.parse(b.pushed_at) - Date.parse(a.pushed_at))
+    .sort((a, b) => rank(a.name) - rank(b.name) || Date.parse(b.pushed_at) - Date.parse(a.pushed_at))
     .slice(0, limit);
 
   return Promise.all(
@@ -148,6 +164,7 @@ export async function getRepos(username = getUsername()): Promise<Repo[]> {
         forks: r.forks_count,
         isFork: r.fork,
         pushedAt: r.pushed_at,
+        featured: featured.includes(r.name.toLowerCase()),
       };
     }),
   );
