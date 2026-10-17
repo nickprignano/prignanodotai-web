@@ -41,6 +41,7 @@ The site runs on Cloudflare Workers through the [OpenNext Cloudflare adapter](ht
    - Production branch: `main`
 
    `npm run deploy` uploads the Worker first, which makes wrangler create the KV namespace on the first deploy. Then it fills the KV cache with the pre-rendered page. Don't use the default `npx wrangler deploy`: it hands off to `opennextjs-cloudflare deploy`, which fills the cache *before* uploading, so the first deploy fails with "No KV namespace ID found for binding NEXT_INC_CACHE_KV".
+   Pull requests get a preview deployment through Cloudflare's non-production deploy command, `npx wrangler preview`. Its settings live in the `previews` block of `wrangler.jsonc`. The `build` command there builds the Worker for it, because preview builds skip the dashboard build step. Previews have no KV cache, so they render fresh on every request and never touch the production cache.
 3. Under **Settings → Variables and Secrets**, add `GITHUB_TOKEN` as a secret (optional, but recommended). Add it as a **build** variable too, because the page is also rendered once during the build.
 4. Attach your domain under **Settings → Domains & Routes**.
 
