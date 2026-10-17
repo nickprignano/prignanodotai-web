@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { resume } from "@/lib/resume";
+import SiteHeader from "../site-header";
 import PrintButton from "./print-button";
 
 export const metadata: Metadata = {
@@ -10,13 +11,7 @@ export const metadata: Metadata = {
 export default function Resume() {
   return (
     <main className="resume">
-      <nav className="resume-nav">
-        <a href="/">← Projects</a>
-        <span className="resume-nav-links">
-          <a href="https://blog.prignano.ai">Blog</a>
-          <PrintButton />
-        </span>
-      </nav>
+      <SiteHeader current="resume" />
 
       <header className="resume-head">
         <h1>{resume.name}</h1>
@@ -31,6 +26,7 @@ export default function Resume() {
             </a>
           ))}
           <a href="https://prignano.ai">prignano.ai</a>
+          <PrintButton />
         </p>
       </header>
 
