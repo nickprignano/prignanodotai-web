@@ -4,6 +4,10 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Wrangler runs this before deploying or previewing. Cloudflare's PR preview
+  // builds (`npx wrangler preview`) don't run the dashboard build command, so
+  // this builds the Worker when nothing has built it yet.
+  "build": { "command": "test -f .open-next/worker.js || npm run build:cf" },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
@@ -23,5 +27,16 @@
     "PORTFOLIO_INCLUDE_FORKS": "false",
     "PORTFOLIO_LIMIT": "24"
   },
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Settings for PR preview deployments (`npx wrangler preview`). Previews get
+  // no KV cache and no self-binding, so each request renders fresh and nothing
+  // is written to the production cache.
+  "previews": {
+    "vars": {
+      "GITHUB_USERNAME": "nickprignano",
+      "PORTFOLIO_EXCLUDE": "",
+      "PORTFOLIO_INCLUDE_FORKS": "false",
+      "PORTFOLIO_LIMIT": "24"
+    }
+  }
 }
