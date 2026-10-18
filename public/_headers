@@ -1,0 +1,6 @@
+# Headers for static files served straight from Workers assets. Rendered
+# pages get theirs from next.config.ts.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

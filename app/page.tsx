@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { getProfile, getRepos, getUsername, type Profile, type Repo } from "@/lib/github";
 import { timeAgo } from "@/lib/format";
 import Carousel from "./carousel";
 import SiteHeader from "./site-header";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Regenerate the page at most once an hour so new pushes show up automatically.
 export const revalidate = 3600;
