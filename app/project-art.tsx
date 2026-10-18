@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 // Animated line art for a project. The repo name seeds the piece (which of
-// the styles below, its shapes and motion) and the language colour sets the
+// the styles below, its shapes and motion) and the language color sets the
 // palette, so a project always looks the same and no two look alike. Only the
 // active slide animates; the others hold a still frame.
 
@@ -129,7 +129,7 @@ const flowTrails: Style = (ctx, w, h, rand, { hues, bg }) => {
   };
 
   // Each tail is drawn in three segments, faint at the back and bright at the
-  // head. Batching by colour and segment keeps it to a dozen strokes a frame.
+  // head. Batching by color and segment keeps it to a dozen strokes a frame.
   const draw = () => {
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
@@ -180,7 +180,7 @@ const waveLines: Style = (ctx, w, h, rand, { hues, bg }) => {
     phase: rand() * 10,
     rowShift: 0.15 + rand() * 0.4,
   }));
-  const centre = 0.35 + rand() * 0.3;
+  const center = 0.35 + rand() * 0.3;
   const width = 0.18 + rand() * 0.15;
   const points = 140;
   let t = rand() * 100;
@@ -199,7 +199,7 @@ const waveLines: Style = (ctx, w, h, rand, { hues, bg }) => {
         const line = new Path2D();
         for (let j = 0; j <= points; j++) {
           const x = (j / points) * w;
-          const env = Math.exp(-(((x / w - centre) / width) ** 2));
+          const env = Math.exp(-(((x / w - center) / width) ** 2));
           let d = 0;
           for (const wv of waves) d += Math.sin(x * wv.f * Math.PI * 2 + t * wv.speed + i * wv.rowShift + wv.phase);
           const y = y0 - Math.abs(d / waves.length) * amp * env;
@@ -310,7 +310,7 @@ function hexToHue(hex: string) {
   const b = (n & 255) / 255;
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
-  if (max === min) return 220; // greys (e.g. unknown languages) get a cool blue
+  if (max === min) return 220; // grays (e.g. unknown languages) get a cool blue
   const d = max - min;
   const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
   return h * 60;

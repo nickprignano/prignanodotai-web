@@ -10,7 +10,7 @@ A personal portfolio site generated from GitHub. It shows public repos in a full
 - Each project gets animated line art (`app/project-art.tsx`), drawn on a canvas. The repo name picks one of three styles (drifting flow-field trails, rippling wave lines, or a slowly turning harmonograph) and seeds its shape and motion; the palette comes from the repo's language. Only the slide in view animates, and with "reduce motion" on it shows a still frame. If the README contains a real screenshot (the first non-badge image, at least 800px wide and landscape), that is shown instead.
 - `app/carousel.tsx` shows one project at a time in a page that never scrolls vertically. The mouse wheel, arrow keys, swipes, the arrow buttons and the dots all move between projects. Images load only as their slide comes near.
 - `app/page.tsx` renders the list with Next.js Incremental Static Regeneration (`revalidate = 3600`). The page is served statically and rebuilt in the background at most once an hour, so new activity shows up without redeploying.
-- The header, colours and dark-mode toggle come from [prignano-theme](https://github.com/nickprignano/prignano-theme), shared by every prignano.ai site. `app/site-header.tsx` renders the header and `app/theme-toggle.tsx` wires up the toggle. To pick up a theme change, install the new tag as its README describes.
+- The header, colors and dark-mode toggle come from [prignano-theme](https://github.com/nickprignano/prignano-theme), shared by every prignano.ai site. `app/site-header.tsx` renders the header and `app/theme-toggle.tsx` wires up the toggle. To pick up a theme change, install the new tag as its README describes.
 - Everything comes straight from GitHub. To change how a project appears, edit its **README** (opening paragraph, plus a screenshot if you want one instead of the artwork), **website** (shown as "Live ↗") and **topics**.
 
 ## Development
@@ -25,7 +25,7 @@ npm run dev                  # http://localhost:3000
 | --- | --- | --- |
 | `GITHUB_USERNAME` | `nickprignano` | Whose repos to show |
 | `GITHUB_TOKEN` | – | Optional; raises the API rate limit (no scopes needed) |
-| `PORTFOLIO_FEATURED` | – | Comma-separated repo names pinned to the front in that order and labelled "Featured research" |
+| `PORTFOLIO_FEATURED` | – | Comma-separated repo names pinned to the front in that order and labeled "Featured research" |
 | `PORTFOLIO_EXCLUDE` | – | Comma-separated repo names to hide |
 | `PORTFOLIO_INCLUDE_FORKS` | `false` | Show forked repos |
 | `PORTFOLIO_LIMIT` | `24` | Max projects shown. Each costs one README request, and Cloudflare's free plan allows 50 outbound requests per render |

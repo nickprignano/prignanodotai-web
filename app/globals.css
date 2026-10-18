@@ -1,4 +1,4 @@
-/* Colours, base type and the header come from prignano-theme (imported in
+/* Colors, base type and the header come from prignano-theme (imported in
    app/layout.tsx). This file holds what is specific to this site. */
 :root {
   --slide-w: min(1080px, calc(100vw - 96px));

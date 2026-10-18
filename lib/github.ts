@@ -21,7 +21,7 @@ export type Repo = {
   forks: number;
   isFork: boolean;
   pushedAt: string;
-  /** Listed in PORTFOLIO_FEATURED: pinned to the front and labelled as featured research. */
+  /** Listed in PORTFOLIO_FEATURED: pinned to the front and labeled as featured research. */
   featured: boolean;
 };
 
