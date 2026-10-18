@@ -30,7 +30,7 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
     [slides.length],
   );
 
-  // Track which slide is centred as the user swipes or scrolls.
+  // Track which slide is centered as the user swipes or scrolls.
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -46,7 +46,7 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
     return () => observer.disconnect();
   }, [slides.length]);
 
-  // Render images for the current slide and its neighbours, keeping ones already shown.
+  // Render images for the current slide and its neighbors, keeping ones already shown.
   useEffect(() => {
     setLoaded((prev) => {
       const next = new Set(prev);

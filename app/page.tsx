@@ -1,6 +1,7 @@
 import { getProfile, getRepos, getUsername, type Profile, type Repo } from "@/lib/github";
 import { timeAgo } from "@/lib/format";
 import Carousel from "./carousel";
+import SiteHeader from "./site-header";
 
 // Regenerate the page at most once an hour so new pushes show up automatically.
 export const revalidate = 3600;
@@ -33,21 +34,7 @@ export default async function Home() {
 
   return (
     <main className="page">
-      <header className="hero">
-        {profile && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img className="avatar" src={profile.avatarUrl} alt="" width={56} height={56} />
-        )}
-        <div className="hero-text">
-          <h1>{profile?.name ?? username}</h1>
-          {profile?.bio && <p className="bio">{profile.bio}</p>}
-        </div>
-        <nav className="links">
-          <a href="/resume">Resume</a>
-          <a href="https://blog.prignano.ai">Blog</a>
-          <a href={profile?.url ?? `https://github.com/${username}`}>GitHub</a>
-        </nav>
-      </header>
+      <SiteHeader current="projects" bio={profile?.bio} />
 
       {error || slides.length === 0 ? (
         <p className="notice">{error ?? "No public projects yet."}</p>
