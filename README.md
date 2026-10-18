@@ -1,9 +1,10 @@
 # prignanodotai-web
 
-A personal portfolio site generated from GitHub. It shows public repos in a full-screen carousel, most recently pushed first, and refreshes itself automatically.
+A personal portfolio site generated from GitHub. It shows public repos, plus hand-added items like events, in a full-screen carousel, and refreshes itself automatically.
 
 ## How it works
 
+- The carousel merges items from several **sources** (`lib/sources/`). Each source turns its own data into the same `ProjectItem` shape (`lib/items.ts`), and `loadItems` merges them: pinned items first, in source order, then everything else by date, newest first. Items past their `showUntil` day are dropped. Today there are two sources, listed in `lib/sources/index.ts`: manual items from `content/manual-items.json`, then GitHub repos. To add another (an RSS or API feed, say), write a `Source` that returns `ProjectItem`s and add it to that list.
 - `lib/github.ts` fetches the profile and all public repos for `GITHUB_USERNAME` from the GitHub REST API.
 - It filters out forks, archived repos, the `<username>/<username>` profile-README repo and anything in `PORTFOLIO_EXCLUDE`, then puts the repos named in `PORTFOLIO_FEATURED` first (in that order) and sorts the rest by `pushed_at` (newest first).
 - For each repo it also fetches the README. Its opening prose paragraphs become the description.
@@ -11,7 +12,43 @@ A personal portfolio site generated from GitHub. It shows public repos in a full
 - `app/carousel.tsx` shows one project at a time in a page that never scrolls vertically. The mouse wheel, arrow keys, swipes, the arrow buttons and the dots all move between projects. Images load only as their slide comes near.
 - `app/page.tsx` renders the list with Next.js Incremental Static Regeneration (`revalidate = 3600`). The page is served statically and rebuilt in the background at most once an hour, so new activity shows up without redeploying.
 - The header, colors and dark-mode toggle come from [prignano-theme](https://github.com/nickprignano/prignano-theme), shared by every prignano.ai site. `app/site-header.tsx` renders the header and `app/theme-toggle.tsx` wires up the toggle. To pick up a theme change, install the new tag as its README describes.
-- Everything comes straight from GitHub. To change how a project appears, edit its **README** (opening paragraph, plus a screenshot if you want one instead of the artwork), **website** (shown as "Live ↗") and **topics**.
+- Repos come straight from GitHub. To change how a project appears, edit its **README** (opening paragraph, plus a screenshot if you want one instead of the artwork), **website** (shown as "Live ↗") and **topics**.
+
+## Adding a manual item
+
+To show something that isn't a GitHub repo, such as an event, add an entry to `content/manual-items.json` and open a PR:
+
+```json
+{
+  "id": "weuc-chicago-2026",
+  "title": "Chicago WEUC Meet-Up",
+  "badge": "Event",
+  "description": "One or two sentences for the card.",
+  "url": "https://worldofeuc.org/event-6842635",
+  "linkLabel": "Event page",
+  "date": "2026-11-04",
+  "showUntil": "2026-11-04",
+  "pinned": true,
+  "topics": ["world-of-euc", "meetup"]
+}
+```
+
+| Field | Required | Meaning |
+| --- | --- | --- |
+| `id` | yes | Unique name for the item; also seeds its line art |
+| `title` | yes | Card title |
+| `url` | yes | Where the title, artwork and button link |
+| `date` | yes | `YYYY-MM-DD`; shown on the card and used to sort unpinned items |
+| `description` | no | Card text |
+| `badge` | no | Small label above the title, like "Event" |
+| `linkLabel` | no | Button text (default "Visit") |
+| `showUntil` | no | Last day the item is shown, `YYYY-MM-DD` in America/New_York. It disappears the next day, within an hour of midnight, with no redeploy. Leave it out to keep the item forever |
+| `pinned` | no | `true` puts it at the front, ahead of featured repos (pinned items keep their order in the file) |
+| `topics` | no | Chips under the description |
+| `image` | no | Screenshot URL shown instead of the line art (at least 800px wide and landscape) |
+| `color` | no | Hex color for the line art palette |
+
+A malformed entry fails the build with a message naming the entry and field. Remove expired entries whenever convenient; they're already hidden.
 
 ## Development
 
