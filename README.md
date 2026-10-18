@@ -11,6 +11,8 @@ A personal portfolio site generated from GitHub. It shows public repos in a full
 - `app/carousel.tsx` shows one project at a time in a page that never scrolls vertically. The mouse wheel, arrow keys, swipes, the arrow buttons and the dots all move between projects. Images load only as their slide comes near.
 - `app/page.tsx` renders the list with Next.js Incremental Static Regeneration (`revalidate = 3600`). The page is served statically and rebuilt in the background at most once an hour, so new activity shows up without redeploying.
 - The header, colors and dark-mode toggle come from [prignano-theme](https://github.com/nickprignano/prignano-theme), shared by every prignano.ai site. `app/site-header.tsx` renders the header and `app/theme-toggle.tsx` wires up the toggle. To pick up a theme change, install the new tag as its README describes.
+- `lib/site.ts` holds the site URL, the link preview card (`public/og.png`) and the Cloudflare Web Analytics token. `app/sitemap.ts`, `app/robots.ts`, `app/icon.svg` and `app/apple-icon.png` produce the sitemap, robots.txt and icons, and every page sets its canonical URL. `public/.well-known/security.txt` says where to report security issues; renew its `Expires` date each year.
+- `next.config.ts` adds HSTS and the other security headers to every page, and `public/_headers` does the same for static files.
 - Everything comes straight from GitHub. To change how a project appears, edit its **README** (opening paragraph, plus a screenshot if you want one instead of the artwork), **website** (shown as "Live ↗") and **topics**.
 
 ## Development

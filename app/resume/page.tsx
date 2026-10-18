@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import { resume } from "@/lib/resume";
+import { SITE } from "@/lib/site";
 import SiteHeader from "../site-header";
 import PrintButton from "./print-button";
 
+const title = `Resume — ${resume.name}`;
+
 export const metadata: Metadata = {
-  title: `Resume — ${resume.name}`,
+  title,
   description: resume.summary,
+  alternates: { canonical: "/resume" },
+  openGraph: { type: "profile", siteName: resume.name, title, description: resume.summary, url: "/resume", images: SITE.image },
+  twitter: { card: "summary_large_image", title, description: resume.summary, images: SITE.image },
 };
 
 export default function Resume() {

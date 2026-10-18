@@ -140,6 +140,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
 .resume { max-width: 820px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
 .resume { --ph-width: 100%; }
 .resume .site-header { margin-bottom: 40px; }
+.not-found h1 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -0.02em; }
 .print {
   font: inherit; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; cursor: pointer;
   border: 1px solid var(--border); background: var(--card); color: var(--fg);
