@@ -1,10 +1,10 @@
 # prignanodotai-web
 
-A personal portfolio site generated from GitHub. It shows public repos, plus hand-added items like events, in a full-screen carousel, and refreshes itself automatically.
+A personal portfolio site generated from GitHub. It shows public repos, plus upcoming events and other hand-added items, in a full-screen carousel, and refreshes itself automatically.
 
 ## How it works
 
-- The carousel merges items from several **sources** (`lib/sources/`). Each source turns its own data into the same `ProjectItem` shape (`lib/items.ts`), and `loadItems` merges them: pinned items first, in source order, then everything else by date, newest first. Items past their `showUntil` day are dropped. Today there are two sources, listed in `lib/sources/index.ts`: manual items from `content/manual-items.json`, then GitHub repos. To add another (an RSS or API feed, say), write a `Source` that returns `ProjectItem`s and add it to that list.
+- The carousel merges items from several **sources** (`lib/sources/`). Each source turns its own data into the same `ProjectItem` shape (`lib/items.ts`), and `loadItems` merges them: pinned items first, in source order, then everything else by date, newest first. Items past their `showUntil` day are dropped. Today there are three sources, listed in `lib/sources/index.ts`: upcoming events from `content/events/`, manual items from `content/manual-items.json`, then GitHub repos. To add another (an RSS or API feed, say), write a `Source` that returns `ProjectItem`s and add it to that list.
 - `lib/github.ts` fetches the profile and all public repos for `GITHUB_USERNAME` from the GitHub REST API.
 - It filters out forks, archived repos, the `<username>/<username>` profile-README repo and anything in `PORTFOLIO_EXCLUDE`, then puts the repos named in `PORTFOLIO_FEATURED` first (in that order) and sorts the rest by `pushed_at` (newest first).
 - For each repo it also fetches the README. Its opening prose paragraphs become the description.
@@ -16,22 +16,25 @@ A personal portfolio site generated from GitHub. It shows public repos, plus han
 - `next.config.ts` adds HSTS and the other security headers to every page, and `public/_headers` does the same for static files.
 - Repos come straight from GitHub. To change how a project appears, edit its **README** (opening paragraph, plus a screenshot if you want one instead of the artwork), **website** (shown as "Live ↗") and **topics**.
 
+## Events
+
+Events live in `content/events/<year>.json` and feed the **/events** schedule, a scrapbook page for each past year (**/events/2025**) and the home carousel. To add an event, or photos, videos and posts from one, see [content/events/README.md](content/events/README.md).
+
 ## Adding a manual item
 
-To show something that isn't a GitHub repo, such as an event, add an entry to `content/manual-items.json` and open a PR:
+To show something in the carousel that is neither a repo nor an event (an article, a recording), add an entry to `content/manual-items.json` and open a PR:
 
 ```json
 {
-  "id": "weuc-chicago-2026",
-  "title": "Chicago WEUC Meet-Up",
-  "badge": "Event",
+  "id": "some-article-2026",
+  "title": "An article I wrote",
+  "badge": "Article",
   "description": "One or two sentences for the card.",
-  "url": "https://worldofeuc.org/event-6842635",
-  "linkLabel": "Event page",
+  "url": "https://example.com/article",
+  "linkLabel": "Read it",
   "date": "2026-11-04",
-  "showUntil": "2026-11-04",
-  "pinned": true,
-  "topics": ["world-of-euc", "meetup"]
+  "pinned": false,
+  "topics": ["writing"]
 }
 ```
 
@@ -42,15 +45,20 @@ To show something that isn't a GitHub repo, such as an event, add an entry to `c
 | `url` | yes | Where the title, artwork and button link |
 | `date` | yes | `YYYY-MM-DD`; shown on the card and used to sort unpinned items |
 | `description` | no | Card text |
-| `badge` | no | Small label above the title, like "Event" |
+| `badge` | no | Small label above the title, like "Article" |
 | `linkLabel` | no | Button text (default "Visit") |
 | `showUntil` | no | Last day the item is shown, `YYYY-MM-DD` in America/New_York. It disappears the next day, within an hour of midnight, with no redeploy. Leave it out to keep the item forever |
-| `pinned` | no | `true` puts it at the front, ahead of featured repos (pinned items keep their order in the file) |
+| `pinned` | no | `true` puts it at the front, after upcoming events and ahead of featured repos (pinned items keep their order in the file) |
 | `topics` | no | Chips under the description |
 | `image` | no | Screenshot URL shown instead of the line art (at least 800px wide and landscape) |
 | `color` | no | Hex color for the line art palette |
 
 A malformed entry fails the build with a message naming the entry and field. Remove expired entries whenever convenient; they're already hidden.
+
+## Checks and the link checker
+
+- Every PR runs `.github/workflows/check.yml`: typecheck, `npm test`, `npm run check:content` (validates `content/`), and a check that fails only on links in `content/` that are clearly gone (404, 410, a domain that no longer resolves).
+- `.github/workflows/links.yml` checks every link on prignano.ai and blog.prignano.ai each Monday, plus the links in `content/` and the blog's posts, using [lychee](https://lychee.cli.rs/) (settings in `.github/lychee.toml`). Results go to one GitHub issue, "Link check report", which reopens when something breaks and closes when everything passes. It skips the run if either site is down rather than reporting every link as dead. LinkedIn, Instagram, X and Facebook block automated checks, so their links can't be verified; YouTube links are checked through YouTube's oEmbed endpoint, which reports deleted videos. GitHub pauses scheduled workflows after 60 days without commits; any commit or a manual run turns it back on.
 
 ## Development
 

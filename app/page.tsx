@@ -47,8 +47,8 @@ export default async function Home() {
           ...item,
           when: formatDate(item.date),
           whenTitle: null,
-          // Highlight an event until it's over.
-          active: item.date.slice(0, 10) >= day,
+          // Highlight an event until it's over (its last day, for multi-day events).
+          active: (item.showUntil ?? item.date.slice(0, 10)) >= day,
         },
   );
 
