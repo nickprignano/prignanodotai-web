@@ -40,7 +40,7 @@ export const resume = {
   education: [{ school: "DeVry University", degree: "BS, Network and Communications Management", years: "2001 – 2006" }],
   experience: [
     {
-      org: "National IT consultancy",
+      org: "Global IT consultancy",
       location: "Chicago, IL",
       roles: [
         {
