@@ -28,6 +28,15 @@
     "PORTFOLIO_INCLUDE_FORKS": "false",
     "PORTFOLIO_LIMIT": "24"
   },
+  // Contact form (app/api/contact/route.ts). The recipient comes from the
+  // CONTACT_TO secret so no inbox address lives in this repo; it must be a
+  // verified destination address in Cloudflare Email Routing.
+  "send_email": [{ "name": "SEND_EMAIL" }],
+  // Workers AI screens messages for junk (lib/contact.ts).
+  "ai": { "binding": "AI" },
+  // Per-IP and per-sender limit: 3 messages a minute. The namespace id is any
+  // number unique to this Cloudflare account.
+  "ratelimits": [{ "name": "CONTACT_RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }],
   "observability": { "enabled": true },
   // Settings for PR preview deployments (`npx wrangler preview`). Previews get
   // no KV cache and no self-binding, so each request renders fresh and nothing

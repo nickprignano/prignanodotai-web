@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/`, changeFrequency: "daily", priority: 1 },
     { url: `${SITE.url}/events`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE.url}/resume`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE.url}/contact`, changeFrequency: "yearly", priority: 0.6 },
     ...pastYears.map((y) => ({ url: `${SITE.url}/events/${y}`, changeFrequency: "yearly" as const, priority: 0.5 })),
   ];
 }

@@ -21,5 +21,7 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 
-// Makes Cloudflare bindings available during `next dev`.
-initOpenNextCloudflareForDev();
+// Makes Cloudflare bindings available during `next dev`. Local only: Workers
+// AI would otherwise need a Cloudflare login just to build (the contact form
+// treats a missing AI answer as "unsure").
+initOpenNextCloudflareForDev({ remoteBindings: false });

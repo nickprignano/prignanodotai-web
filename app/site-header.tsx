@@ -9,7 +9,7 @@ export default function SiteHeader({ current, bio }: { current: string; bio?: st
     bio,
     home: "/",
     links: [{ id: "events", label: "Events", href: "/events" }],
-    local: { projects: "/", resume: "/resume" },
+    local: { projects: "/", resume: "/resume", contact: "/contact" },
   });
   return <div className="site-header" dangerouslySetInnerHTML={{ __html: html }} />;
 }
