@@ -70,8 +70,6 @@ export default function Events() {
         <p>Where I&apos;m speaking and showing up in {year}. Past events stay on the list, with links to photos, videos and posts as they come in.</p>
       </header>
 
-      <SpeakCta />
-
       {next ? (
         <section className="next-up" aria-labelledby="next-up">
           <EventArt seed={next.id} always />
@@ -108,6 +106,8 @@ export default function Events() {
           <Schedule events={later} />
         </section>
       )}
+
+      <SpeakCta />
 
       {archive.length > 0 && (
         <nav className="years" aria-label="Past years">

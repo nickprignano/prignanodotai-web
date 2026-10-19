@@ -192,7 +192,7 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
   display: flex; align-items: center; justify-content: space-between; gap: 16px 28px; flex-wrap: wrap;
   background: var(--accent); color: var(--bg);
 }
-.speak h2 { margin: 0; font-size: 1.4rem; letter-spacing: -0.01em; }
+.speak h2, .resume .speak h2 { margin: 0; font-size: 1.4rem; letter-spacing: -0.01em; text-transform: none; color: inherit; }
 .speak p { margin: 4px 0 0; max-width: 56ch; opacity: 0.92; }
 .speak-button {
   display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px;
