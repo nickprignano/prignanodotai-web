@@ -61,7 +61,12 @@ export default function ContactForm({ siteKey }: { siteKey: string }) {
     setState({ kind: "sending" });
     try {
       const res = await fetch("/api/contact", { method: "POST", body: data });
-      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; redirect?: string };
+      // The route only sends this for submissions a bot would make.
+      if (res.ok && out.ok && out.redirect?.startsWith("https://www.youtube.com/")) {
+        window.location.assign(out.redirect);
+        return;
+      }
       if (res.ok && out.ok) {
         form.reset();
         setState({ kind: "sent" });

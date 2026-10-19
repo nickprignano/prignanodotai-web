@@ -35,10 +35,11 @@ const FROM = { name: "prignano.ai contact form", email: "contact-form@prignano.a
 const json = (body: object, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 const sent = () => json({ ok: true });
 const fail = (error: string, status = 400) => json({ ok: false, error }, status);
-// For submissions only a bot makes (honeypot, too fast, hard junk rules). The
-// form shows the same "sent" message either way; only a bot reading the raw
-// response sees the extra field. Never used for AI verdicts.
-const rickroll = () => json({ ok: true, note: "Never gonna give you up: https://www.youtube.com/watch?v=dQw4w9WgXcQ" });
+// For submissions only a bot makes (honeypot, too fast, hard junk rules): the
+// form follows the redirect, and a bot reading the raw response still sees
+// "ok". Never used for AI verdicts.
+const RICKROLL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const rickroll = () => json({ ok: true, note: "Never gonna give you up", redirect: RICKROLL });
 
 async function verifyTurnstile(secret: string, token: string, ip: string | null, host: string) {
   if (!token) return false;
