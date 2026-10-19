@@ -5,6 +5,7 @@ import { today } from "@/lib/items";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../site-header";
 import EventArt from "./event-art";
+import SpeakCta from "../speak-cta";
 import { EventFacts, EventRow, EventTitle, LinkRow, RolePill } from "./event-parts";
 
 const title = `Events — ${SITE.name}`;
@@ -68,6 +69,8 @@ export default function Events() {
         <h1>Events</h1>
         <p>Where I&apos;m speaking and showing up in {year}. Past events stay on the list, with links to photos, videos and posts as they come in.</p>
       </header>
+
+      <SpeakCta />
 
       {next ? (
         <section className="next-up" aria-labelledby="next-up">
