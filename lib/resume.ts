@@ -98,7 +98,7 @@ export const resume = {
       ],
     },
     {
-      org: "University",
+      org: "Online tech university",
       location: "Oak Brook, IL",
       roles: [
         {
