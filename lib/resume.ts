@@ -118,7 +118,7 @@ export const resume = {
           title: "Systems Administrator",
           start: "Dec 2011",
           end: "Sep 2012",
-          summary: "Citrix and Windows Server operations.",
+          summary: "Citrix and Windows Server ops.",
         },
       ],
     },
