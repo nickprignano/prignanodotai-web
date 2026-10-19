@@ -28,6 +28,7 @@ export const resume = {
     "Microsoft 365 and Entra",
     "Tenant migration",
     "Enterprise AI enablement",
+    "Automation and infrastructure as code",
     "End-user computing",
     "Citrix Virtual Apps and Desktops",
     "VMware Horizon and Workspace ONE",
