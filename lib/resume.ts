@@ -50,7 +50,7 @@ export const resume = {
           start: "Jul 2019",
           end: "Feb 2020",
           summary:
-            "Technical team lead on strategic enterprise end-user computing projects across the data center and public cloud practices. Technical lead for earning the AWS End User Computing Competency as one of its four original launch partners.",
+            "Technical team lead on strategic enterprise end-user computing projects across the data center and public cloud practices. Also helped shape business development and go-to-market strategy for the practice.",
         },
         {
           title: "Specialist Sales Engineer",
