@@ -1,11 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { ProjectItem } from "@/lib/items";
 import { languageColor } from "@/lib/format";
+import type { Slide } from "@/lib/portfolio";
 import ProjectArt from "./project-art";
-
-type Slide = ProjectItem & { when: string; whenTitle: string | null; active: boolean };
+import ProjectInfo from "./project-info";
 
 // Images for slides this far from the current one are loaded ahead of time.
 const PRELOAD_DISTANCE = 1;
@@ -107,49 +106,7 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
               {item.image && loaded.has(i) && <Screenshot src={item.image} />}
             </a>
 
-            <div className="info">
-              <div className="info-head">
-                {item.badge && <span className="featured">{item.badge}</span>}
-                <h2>
-                  <a href={item.href}>{item.title}</a>
-                </h2>
-                <time
-                  dateTime={item.date}
-                  title={item.whenTitle ?? undefined}
-                  className={item.active ? "activity active" : "activity"}
-                >
-                  {item.when}
-                </time>
-              </div>
-
-              {item.description && <p className="desc">{item.description}</p>}
-
-              {item.topics.length > 0 && (
-                <ul className="topics">
-                  {item.topics.slice(0, 6).map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="meta">
-                {item.language && (
-                  <span>
-                    <span className="lang-dot" style={{ background: languageColor(item.language) }} />
-                    {item.language}
-                  </span>
-                )}
-                {item.stars > 0 && <span>★ {item.stars}</span>}
-                {item.forks > 0 && <span>⑂ {item.forks}</span>}
-                <span className="actions">
-                  {item.links.map((link) => (
-                    <a key={link.href} href={link.href}>
-                      {link.label}
-                    </a>
-                  ))}
-                </span>
-              </div>
-            </div>
+            <ProjectInfo item={item} />
           </li>
         ))}
       </ol>
@@ -189,7 +146,7 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
 
 // A README image replaces the artwork only when it looks like a real
 // screenshot (large and landscape); logos and icons are skipped.
-function Screenshot({ src }: { src: string }) {
+export function Screenshot({ src, lazy = false }: { src: string; lazy?: boolean }) {
   const [show, setShow] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
 
@@ -210,6 +167,7 @@ function Screenshot({ src }: { src: string }) {
       src={src}
       alt=""
       decoding="async"
+      loading={lazy ? "lazy" : undefined}
       className={show ? "screenshot ready" : "screenshot"}
       onLoad={check}
       onError={() => setShow(false)}

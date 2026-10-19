@@ -55,6 +55,32 @@ To show something in the carousel that is neither a repo nor an event (an articl
 
 A malformed entry fails the build with a message naming the entry and field. Remove expired entries whenever convenient; they're already hidden.
 
+## Projects page and the featured box
+
+`/projects` (`app/projects/page.tsx`) lists every item from the carousel as a grid of cards, refreshed hourly like the home page. The header's **Projects** link points here.
+
+To give one item special attention (asking for help, a release coming up), nominate it in `content/featured.json` and open a PR:
+
+```json
+{
+  "item": "nerdio-hcl",
+  "heading": "Help wanted",
+  "message": "v1.0 is close. Looking for people to try the beta and tell me what breaks.",
+  "cta": { "label": "Try the beta", "href": "https://github.com/nickprignano/nerdio-hcl/issues" },
+  "countdown": { "to": "2026-11-15T09:00", "label": "v1.0 release" }
+}
+```
+
+| Field | Required | Meaning |
+| --- | --- | --- |
+| `item` | yes | Which item: a repo name (`nerdio-hcl`), a manual item or event `id`, or a full item id like `github:nickprignano/nerdio-hcl`. Case doesn't matter. Empty (`""`) turns the box off |
+| `heading` | no | Small label above the title (default "Featured") |
+| `message` | no | Your note; the item's own description shows when it's empty |
+| `cta` | no | A button: `label` and `href` (`https://…` or a path like `/contact`). `null` for none |
+| `countdown` | no | `to` is `YYYY-MM-DD` (midnight) or `YYYY-MM-DDTHH:MM`, both in America/New_York, or an ISO time with an offset; `label` defaults to "Release". It ticks live and disappears once the time passes. `null` for none |
+
+The item stays in the grid below too. If `item` matches nothing (a typo, an expired event), the box is simply left out and the server logs a warning; `npm run check:content` checks the file's shape.
+
 ## Contact page and form
 
 `/contact` lists Nick's socials (`SOCIALS` in `lib/site.ts`) and has a message form. `/contact?topic=speaking` opens with the speaking topic picked. The form posts to `/api/contact` (`app/api/contact/route.ts`), which emails good messages to Nick through Cloudflare Email Routing. The reply-to is the sender, so answering is just Reply.
