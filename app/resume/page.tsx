@@ -59,32 +59,14 @@ export default function Resume() {
         ))}
       </section>
 
-      <div className="resume-grid">
-        <section>
-          <h2>Skills</h2>
-          <ul className="topics">
-            {resume.skills.map((skill) => (
-              <li key={skill}>{skill}</li>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h2>Certifications</h2>
-          <ul className="plain">
-            {resume.certifications.map((cert) => (
-              <li key={cert}>{cert}</li>
-            ))}
-          </ul>
-          <h2>Education</h2>
-          <ul className="plain">
-            {resume.education.map((ed) => (
-              <li key={ed.school}>
-                <strong>{ed.school}</strong>, {ed.degree} <span className="when">{ed.years}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+      <section>
+        <h2>Skills</h2>
+        <ul className="topics">
+          {resume.skills.map((skill) => (
+            <li key={skill}>{skill}</li>
+          ))}
+        </ul>
+      </section>
 
       <SpeakCta />
     </main>

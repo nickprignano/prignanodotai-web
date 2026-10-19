@@ -34,11 +34,6 @@ export const resume = {
     "VMware Horizon and Workspace ONE",
     "Amazon WorkSpaces and AppStream 2.0",
   ],
-  certifications: [
-    "Microsoft Certified Solutions Associate: Office 365",
-    "Citrix Certified Expert – Virtualization (CCE-V)",
-  ],
-  education: [{ school: "DeVry University", degree: "BS, Network and Communications Management", years: "2001 – 2006" }],
   experience: [
     {
       org: "Global IT consultancy",
@@ -55,7 +50,7 @@ export const resume = {
           start: "Jul 2019",
           end: "Feb 2020",
           summary:
-            "Technical team lead on strategic enterprise end-user computing projects across the data center and public cloud practices. Technical lead for earning the AWS End User Computing Competency as one of its four original launch partners.",
+            "Technical team lead on strategic enterprise end-user computing projects across the data center and public cloud practices. Also helped shape business development and go-to-market strategy for the practice.",
         },
         {
           title: "Specialist Sales Engineer",
