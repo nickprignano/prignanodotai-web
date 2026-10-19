@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test \"lib/**/*.test.ts\"",
+    "check:content": "node --experimental-strip-types scripts/check-content.ts",
     "build:cf": "opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "OPEN_NEXT_DEPLOY=true wrangler deploy && opennextjs-cloudflare populateCache remote",

@@ -1,14 +1,1 @@
-[
-  {
-    "id": "weuc-chicago-2026",
-    "title": "Chicago WEUC Meet-Up",
-    "badge": "Event",
-    "description": "A World of EUC in-person meet-up at Andretti Indoor Karting and Games in Schaumburg, IL, from noon to 3 PM. Networking with end-user computing peers, a technical session on what happens to user profiles and apps when you move from on-prem to the cloud, and karting.",
-    "url": "https://worldofeuc.org/event-6842635",
-    "linkLabel": "Event page",
-    "date": "2026-11-04",
-    "showUntil": "2026-11-04",
-    "pinned": true,
-    "topics": ["world-of-euc", "euc", "meetup", "chicago"]
-  }
-]
+[]

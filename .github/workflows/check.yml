@@ -1,0 +1,42 @@
+name: Check
+
+# Every pull request: types, unit tests, and the hand-written content files.
+# A typo in content/events/*.json fails here, with the entry and field named,
+# instead of failing the Cloudflare deploy after merge.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run check:content
+
+  # Links in content files: fails only on links that are clearly gone (404,
+  # 410, a domain that doesn't resolve). Sites that block bots or are having
+  # a bad day don't block the PR; the weekly link check reports those.
+  content-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --config .github/lychee.toml
+            --accept '100..=399,401,403,405,429,500..=599,999'
+            'content/**/*.json'
+          fail: true
+          jobSummary: true
