@@ -28,6 +28,7 @@ export const resume = {
     "Microsoft 365 and Entra",
     "Tenant migration",
     "Enterprise AI enablement",
+    "Automation and infrastructure as code",
     "End-user computing",
     "Citrix Virtual Apps and Desktops",
     "VMware Horizon and Workspace ONE",
@@ -40,7 +41,7 @@ export const resume = {
   education: [{ school: "DeVry University", degree: "BS, Network and Communications Management", years: "2001 – 2006" }],
   experience: [
     {
-      org: "National IT consultancy",
+      org: "Global IT consultancy",
       location: "Chicago, IL",
       roles: [
         {
@@ -98,7 +99,7 @@ export const resume = {
       ],
     },
     {
-      org: "University",
+      org: "Online tech university",
       location: "Oak Brook, IL",
       roles: [
         {
@@ -111,13 +112,25 @@ export const resume = {
       ],
     },
     {
+      org: "Government contracting",
+      location: "Tennessee",
+      roles: [
+        {
+          title: "Systems Administrator",
+          start: "Dec 2011",
+          end: "Sep 2012",
+          summary: "Citrix and Windows Server ops.",
+        },
+      ],
+    },
+    {
       org: "Earlier roles",
       location: "Illinois and Tennessee",
       roles: [
         {
           title: "Citrix consultant, systems engineer and administrator",
           start: "Mar 2005",
-          end: "Sep 2012",
+          end: "Dec 2011",
           summary:
             "Citrix and Windows engineering for healthcare, financial services and small-business clients: XenDesktop builds for remote call centers, 24×7 support for a 25-site medical practice, managed services for 50+ healthcare clients, and independent consulting.",
         },
