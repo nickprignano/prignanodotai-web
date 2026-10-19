@@ -1,5 +1,23 @@
 [
   {
+    "id": "weuc-chicago-2026-04",
+    "title": "Chicago WEUC Meet-Up",
+    "start": "2026-04-22",
+    "time": "15:00-18:00",
+    "timeZone": "America/Chicago",
+    "organizer": "World of EUC",
+    "organizerUrl": "https://worldofeuc.org/",
+    "location": {
+      "venue": "WhirlyBall Vernon Hills",
+      "city": "Vernon Hills",
+      "region": "IL",
+      "country": "US"
+    },
+    "url": "https://worldofeuc.org/event-6547480",
+    "description": "A spring World of EUC meet-up for Chicago-area end-user computing folks, with networking and WhirlyBall.",
+    "topics": ["world-of-euc", "euc", "meetup", "chicago"]
+  },
+  {
     "id": "euc-world-amplify-2026",
     "title": "EUC World Amplify 2026",
     "start": "2026-09-29",

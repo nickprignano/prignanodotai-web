@@ -6,6 +6,7 @@ import { today } from "@/lib/items";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../../site-header";
 import EventArt from "../event-art";
+import SpeakCta from "../../speak-cta";
 import { EventFacts, EventTitle, LinkGroups, RolePill, statusLabel } from "../event-parts";
 
 // A past year's events as a scrapbook: one card per event with links out to
@@ -96,6 +97,8 @@ export default async function YearArchive({ params }: Params) {
           );
         })}
       </ol>
+
+      <SpeakCta />
 
       <p className="back">
         <a href="/events">← This year&apos;s events</a>
