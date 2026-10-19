@@ -24,10 +24,13 @@ export default async function Home() {
   } catch (e) {
     // During a background refresh, throwing makes Next.js keep serving the
     // last good page instead of caching an error. Only the very first build,
-    // which has no previous page, renders the error message.
-    if (process.env.NEXT_PHASE !== "phase-production-build") throw e;
+    // which has no previous page, renders the error message. PR previews have
+    // no page cache either, so they show the error, with its cause.
+    const preview = process.env.PORTFOLIO_PREVIEW === "true";
+    if (process.env.NEXT_PHASE !== "phase-production-build" && !preview) throw e;
     console.error(e);
     error = "Couldn't load projects from GitHub right now. Please check back shortly.";
+    if (preview) error += ` (${e instanceof Error ? e.message : String(e)})`;
   }
 
   const now = Date.now();
