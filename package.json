@@ -17,7 +17,7 @@
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.6",
     "next": "^16.3.6",
-    "prignano-theme": "https://codeload.github.com/nickprignano/prignano-theme/tar.gz/42b6cc5b4b573bbe0f7ba49cf7ba8b4ee6bce2df",
+    "prignano-theme": "https://codeload.github.com/nickprignano/prignano-theme/tar.gz/8af2a0f1e2ef0d865cf0658b4f09f77b97198dee",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
