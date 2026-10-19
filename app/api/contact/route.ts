@@ -35,6 +35,11 @@ const FROM = { name: "prignano.ai contact form", email: "contact-form@prignano.a
 const json = (body: object, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 const sent = () => json({ ok: true });
 const fail = (error: string, status = 400) => json({ ok: false, error }, status);
+// For submissions only a bot makes (honeypot, too fast, hard junk rules): the
+// form follows the redirect, and a bot reading the raw response still sees
+// "ok". Never used for AI verdicts.
+const RICKROLL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const rickroll = () => json({ ok: true, note: "Never gonna give you up", redirect: RICKROLL });
 
 async function verifyTurnstile(secret: string, token: string, ip: string | null, host: string) {
   if (!token) return false;
@@ -102,7 +107,7 @@ export async function POST(request: Request) {
   // Bots that fill every field, or submit faster than anyone can type.
   if (parsed.honeypot || parsed.elapsedMs < MIN_FILL_MS) {
     console.log(JSON.stringify({ contact: "dropped", reasons: [parsed.honeypot ? "honeypot" : "too-fast"], from: m.email }));
-    return sent();
+    return rickroll();
   }
 
   if (!(await verifyTurnstile(env.TURNSTILE_SECRET_KEY, parsed.turnstileToken, ip, host))) {
@@ -124,7 +129,7 @@ export async function POST(request: Request) {
     console.log(
       JSON.stringify({ contact: "dropped", reasons: decision.reasons, from: m.email, name: m.name, topic: m.topic, preview: m.message.slice(0, 300) }),
     );
-    return sent();
+    return rules.hard.length > 0 ? rickroll() : sent();
   }
 
   const cf = (request as Request & { cf?: { country?: string } }).cf;

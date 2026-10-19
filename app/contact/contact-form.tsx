@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { OWNER } from "prignano-theme";
 import { LIMITS, TOPICS } from "@/lib/contact";
 
 // Cloudflare's always-pass test key, so the form works in `next dev` before
@@ -62,7 +61,12 @@ export default function ContactForm({ siteKey }: { siteKey: string }) {
     setState({ kind: "sending" });
     try {
       const res = await fetch("/api/contact", { method: "POST", body: data });
-      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      const out = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; redirect?: string };
+      // The route only sends this for submissions a bot would make.
+      if (res.ok && out.ok && out.redirect?.startsWith("https://www.youtube.com/")) {
+        window.location.assign(out.redirect);
+        return;
+      }
       if (res.ok && out.ok) {
         form.reset();
         setState({ kind: "sent" });
@@ -133,7 +137,7 @@ export default function ContactForm({ siteKey }: { siteKey: string }) {
           {state.kind === "sending" ? "Sending…" : "Send message"}
         </button>
         <p className="contact-fine">
-          Messages are screened for spam by Cloudflare. Rather email? <a href={`mailto:${OWNER.email}`}>{OWNER.email}</a>
+          Messages are screened for spam by Cloudflare.
         </p>
       </div>
       {state.kind === "error" && (

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { OWNER } from "prignano-theme";
 import { SITE, SOCIALS } from "@/lib/site";
 import SiteHeader from "../site-header";
 import ContactForm from "./contact-form";
+import EmailCard from "./email-card";
+import SocialIcon from "./social-icon";
 
 const title = `Contact — ${SITE.name}`;
 const description = `Where to find ${SITE.name} online, and a form to send him a message.`;
@@ -30,19 +31,18 @@ export default function Contact() {
           <h2 id="find-me">Find me</h2>
           <ul className="socials">
             {SOCIALS.map((s) => (
-              <li key={s.id}>
-                <a href={s.href} rel="me">
-                  <span className="social-label">{s.label}</span>
-                  <span className="social-handle">{s.handle}</span>
+              <li key={s.id} className="social">
+                <a className="social-link" href={s.href} rel="me">
+                  <SocialIcon id={s.id} />
+                  <span className="social-text">
+                    <span className="social-label">{s.label}</span>
+                    <span className="social-handle">{s.handle}</span>
+                  </span>
+                  <span className="social-go" aria-hidden="true">↗</span>
                 </a>
               </li>
             ))}
-            <li>
-              <a href={`mailto:${OWNER.email}`}>
-                <span className="social-label">Email</span>
-                <span className="social-handle">{OWNER.email}</span>
-              </a>
-            </li>
+            <EmailCard />
           </ul>
         </section>
 
@@ -52,7 +52,7 @@ export default function Contact() {
             <ContactForm siteKey={SITE.turnstileSiteKey} />
           ) : (
             <p className="notice-inline">
-              The form is on its way. Until then, email <a href={`mailto:${OWNER.email}`}>{OWNER.email}</a>.
+              The form is on its way. Until then, use the Email card.
             </p>
           )}
         </section>
