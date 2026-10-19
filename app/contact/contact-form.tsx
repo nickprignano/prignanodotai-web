@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { OWNER } from "prignano-theme";
 import { LIMITS, TOPICS } from "@/lib/contact";
 
 // Cloudflare's always-pass test key, so the form works in `next dev` before
@@ -133,7 +132,7 @@ export default function ContactForm({ siteKey }: { siteKey: string }) {
           {state.kind === "sending" ? "Sending…" : "Send message"}
         </button>
         <p className="contact-fine">
-          Messages are screened for spam by Cloudflare. Rather email? <a href={`mailto:${OWNER.email}`}>{OWNER.email}</a>
+          Messages are screened for spam by Cloudflare.
         </p>
       </div>
       {state.kind === "error" && (
