@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Repo } from "@/lib/github";
-import { formatDate, languageColor } from "@/lib/format";
+import type { ProjectItem } from "@/lib/items";
+import { languageColor } from "@/lib/format";
 import ProjectArt from "./project-art";
 
-type Slide = Repo & { updated: string; active: boolean };
+type Slide = ProjectItem & { when: string; whenTitle: string | null; active: boolean };
 
 // Images for slides this far from the current one are loaded ahead of time.
 const PRELOAD_DISTANCE = 1;
@@ -89,61 +89,64 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
   return (
     <section className="carousel" aria-roledescription="carousel" aria-label="Projects">
       <ol className="track" ref={trackRef}>
-        {slides.map((repo, i) => (
+        {slides.map((item, i) => (
           <li
-            key={repo.id}
+            key={item.id}
             className="slide"
             data-index={i}
             aria-roledescription="slide"
-            aria-label={`${i + 1} of ${slides.length}: ${repo.name}`}
+            aria-label={`${i + 1} of ${slides.length}: ${item.title}`}
             aria-current={i === index}
           >
-            <a className="shot" href={repo.homepage ?? repo.url} tabIndex={-1} aria-hidden>
+            <a className="shot" href={item.artHref} tabIndex={-1} aria-hidden>
               <ProjectArt
-                seed={repo.fullName}
-                color={repo.language ? languageColor(repo.language) : null}
+                seed={item.seed}
+                color={item.color ?? (item.language ? languageColor(item.language) : null)}
                 animate={i === index}
               />
-              {repo.image && loaded.has(i) && <Screenshot src={repo.image} />}
+              {item.image && loaded.has(i) && <Screenshot src={item.image} />}
             </a>
 
             <div className="info">
               <div className="info-head">
-                {repo.featured && <span className="featured">Featured research</span>}
+                {item.badge && <span className="featured">{item.badge}</span>}
                 <h2>
-                  <a href={repo.url}>{repo.name}</a>
+                  <a href={item.href}>{item.title}</a>
                 </h2>
                 <time
-                  dateTime={repo.pushedAt}
-                  title={`Last push ${formatDate(repo.pushedAt)}`}
-                  className={repo.active ? "activity active" : "activity"}
+                  dateTime={item.date}
+                  title={item.whenTitle ?? undefined}
+                  className={item.active ? "activity active" : "activity"}
                 >
-                  {repo.updated}
+                  {item.when}
                 </time>
               </div>
 
-              {repo.description && <p className="desc">{repo.description}</p>}
+              {item.description && <p className="desc">{item.description}</p>}
 
-              {repo.topics.length > 0 && (
+              {item.topics.length > 0 && (
                 <ul className="topics">
-                  {repo.topics.slice(0, 6).map((t) => (
+                  {item.topics.slice(0, 6).map((t) => (
                     <li key={t}>{t}</li>
                   ))}
                 </ul>
               )}
 
               <div className="meta">
-                {repo.language && (
+                {item.language && (
                   <span>
-                    <span className="lang-dot" style={{ background: languageColor(repo.language) }} />
-                    {repo.language}
+                    <span className="lang-dot" style={{ background: languageColor(item.language) }} />
+                    {item.language}
                   </span>
                 )}
-                {repo.stars > 0 && <span>★ {repo.stars}</span>}
-                {repo.forks > 0 && <span>⑂ {repo.forks}</span>}
+                {item.stars > 0 && <span>★ {item.stars}</span>}
+                {item.forks > 0 && <span>⑂ {item.forks}</span>}
                 <span className="actions">
-                  <a href={repo.url}>Code</a>
-                  {repo.homepage && <a href={repo.homepage}>Live ↗</a>}
+                  {item.links.map((link) => (
+                    <a key={link.href} href={link.href}>
+                      {link.label}
+                    </a>
+                  ))}
                 </span>
               </div>
             </div>
@@ -156,13 +159,13 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
           ←
         </button>
         <div className="dots" role="tablist" aria-label="Choose project">
-          {slides.map((repo, i) => (
+          {slides.map((item, i) => (
             <button
-              key={repo.id}
+              key={item.id}
               type="button"
               role="tab"
               aria-selected={i === index}
-              aria-label={repo.name}
+              aria-label={item.title}
               className={i === index ? "dot current" : "dot"}
               onClick={() => goTo(i)}
             />

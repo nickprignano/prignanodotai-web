@@ -34,6 +34,8 @@
   // is written to the production cache.
   "previews": {
     "vars": {
+      // Shows GitHub errors on the page instead of a bare 500 (app/page.tsx).
+      "PORTFOLIO_PREVIEW": "true",
       "GITHUB_USERNAME": "nickprignano",
       "PORTFOLIO_FEATURED": "avd-landing-zone,nerdio-hcl",
       "PORTFOLIO_EXCLUDE": "",
