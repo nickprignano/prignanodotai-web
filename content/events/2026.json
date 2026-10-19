@@ -1,11 +1,29 @@
 [
   {
+    "id": "euc-world-amplify-2026",
+    "title": "EUC World Amplify 2026",
+    "start": "2026-09-29",
+    "end": "2026-10-01",
+    "timeZone": "America/Chicago",
+    "organizer": "World of EUC",
+    "organizerUrl": "https://worldofeuc.org/",
+    "location": {
+      "venue": "Baird Center",
+      "city": "Milwaukee",
+      "region": "WI",
+      "country": "US"
+    },
+    "url": "https://worldofeuc.org/EUCWorld2026",
+    "description": "World of EUC's annual community conference for end-user computing, three days of sessions and networking in Milwaukee.",
+    "topics": ["world-of-euc", "euc", "conference", "milwaukee"]
+  },
+  {
     "id": "weuc-chicago-2026",
     "title": "Chicago WEUC Meet-Up",
     "start": "2026-11-04",
     "time": "12:00-15:00",
     "timeZone": "America/Chicago",
-    "role": "attendee",
+    "role": "speaker",
     "organizer": "World of EUC",
     "organizerUrl": "https://worldofeuc.org/",
     "location": {
