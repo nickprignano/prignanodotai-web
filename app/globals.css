@@ -156,9 +156,6 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
 .role + .role { margin-top: 12px; }
 .role-head { margin: 0; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .role-summary { margin: 2px 0 0; color: var(--muted); }
-.resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
-.plain { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
-@media (max-width: 640px) { .resume-grid { grid-template-columns: 1fr; } }
 
 @media print {
   :root { --bg: #fff; --fg: #111418; --muted: #4a525c; --card: #fff; --border: #d5d9de; --chip: #fff; --chip-fg: #111418; }

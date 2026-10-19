@@ -34,11 +34,6 @@ export const resume = {
     "VMware Horizon and Workspace ONE",
     "Amazon WorkSpaces and AppStream 2.0",
   ],
-  certifications: [
-    "Microsoft Certified Solutions Associate: Office 365",
-    "Citrix Certified Expert – Virtualization (CCE-V)",
-  ],
-  education: [{ school: "DeVry University", degree: "BS, Network and Communications Management", years: "2001 – 2006" }],
   experience: [
     {
       org: "Global IT consultancy",
