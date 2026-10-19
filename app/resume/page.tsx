@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { resume } from "@/lib/resume";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../site-header";
+import SpeakCta from "../speak-cta";
 import PrintButton from "./print-button";
 
 const title = `Resume — ${resume.name}`;
@@ -35,6 +36,8 @@ export default function Resume() {
           <PrintButton />
         </p>
       </header>
+
+      <SpeakCta />
 
       <section>
         <h2>Experience</h2>
