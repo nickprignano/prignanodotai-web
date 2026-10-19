@@ -1,0 +1,57 @@
+[
+  {
+    "id": "weuc-chicago-2026-04",
+    "title": "Chicago WEUC Meet-Up",
+    "start": "2026-04-22",
+    "time": "15:00-18:00",
+    "timeZone": "America/Chicago",
+    "organizer": "World of EUC",
+    "organizerUrl": "https://worldofeuc.org/",
+    "location": {
+      "venue": "WhirlyBall Vernon Hills",
+      "city": "Vernon Hills",
+      "region": "IL",
+      "country": "US"
+    },
+    "url": "https://worldofeuc.org/event-6547480",
+    "description": "A spring World of EUC meet-up for Chicago-area end-user computing folks, with networking and WhirlyBall.",
+    "topics": ["world-of-euc", "euc", "meetup", "chicago"]
+  },
+  {
+    "id": "euc-world-amplify-2026",
+    "title": "EUC World Amplify 2026",
+    "start": "2026-09-29",
+    "end": "2026-10-01",
+    "timeZone": "America/Chicago",
+    "organizer": "World of EUC",
+    "organizerUrl": "https://worldofeuc.org/",
+    "location": {
+      "venue": "Baird Center",
+      "city": "Milwaukee",
+      "region": "WI",
+      "country": "US"
+    },
+    "url": "https://worldofeuc.org/EUCWorld2026",
+    "description": "World of EUC's annual community conference for end-user computing, three days of sessions and networking in Milwaukee.",
+    "topics": ["world-of-euc", "euc", "conference", "milwaukee"]
+  },
+  {
+    "id": "weuc-chicago-2026",
+    "title": "Chicago WEUC Meet-Up",
+    "start": "2026-11-04",
+    "time": "12:00-15:00",
+    "timeZone": "America/Chicago",
+    "role": "speaker",
+    "organizer": "World of EUC",
+    "organizerUrl": "https://worldofeuc.org/",
+    "location": {
+      "venue": "Andretti Indoor Karting and Games",
+      "city": "Schaumburg",
+      "region": "IL",
+      "country": "US"
+    },
+    "url": "https://worldofeuc.org/event-6842635",
+    "description": "A World of EUC in-person meet-up. Networking with end-user computing peers, a technical session on what happens to user profiles and apps when you move from on-prem to the cloud, and karting.",
+    "topics": ["world-of-euc", "euc", "meetup", "chicago"]
+  }
+]

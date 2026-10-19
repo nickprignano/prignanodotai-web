@@ -158,9 +158,142 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
 .role-summary { margin: 2px 0 0; color: var(--muted); }
 
 @media print {
+  .speak { display: none !important; }
   :root { --bg: #fff; --fg: #111418; --muted: #4a525c; --card: #fff; --border: #d5d9de; --chip: #fff; --chip-fg: #111418; }
   .resume { padding: 0; max-width: none; }
   .resume h2 { margin-top: 24px; }
   .topics li { border: 1px solid var(--border); }
   a { color: var(--fg); }
+}
+
+/* Events: the schedule (/events) and the year scrapbooks (/events/2025). */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.muted { color: var(--muted); }
+
+.events { max-width: 920px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
+.events { --ph-width: 100%; }
+.events .site-header { margin-bottom: 40px; }
+.events-head h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; }
+.events-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+.eyebrow { margin: 0 0 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.events-head .eyebrow { color: var(--muted); }
+.section-heading { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 48px 0 8px; }
+.notice-inline { margin: 32px 0 0; padding: 16px; border: 1px dashed var(--border); border-radius: 12px; color: var(--muted); }
+
+/* The "invite me to speak" box: the boldest thing on the events pages. */
+.speak {
+  margin-top: 28px; padding: clamp(18px, 3vw, 28px); border-radius: 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px 28px; flex-wrap: wrap;
+  background: var(--accent); color: var(--bg);
+}
+.speak h2, .resume .speak h2 { margin: 0; font-size: 1.4rem; letter-spacing: -0.01em; text-transform: none; color: inherit; }
+.speak p { margin: 4px 0 0; max-width: 56ch; opacity: 0.92; }
+.speak-button {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px;
+  background: var(--bg); color: var(--fg); font-weight: 700; text-decoration: none; white-space: nowrap;
+}
+.speak-button:hover, .speak-button:focus-visible { outline: 3px solid var(--bg); outline-offset: 3px; }
+.scrapbook .speak { margin-top: 48px; }
+.resume .speak { margin-top: 32px; }
+.speak h2 { scroll-margin-top: 24px; }
+
+.next-up {
+  margin-top: 32px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--card);
+}
+.ev-art { position: relative; min-height: 180px; background: var(--art-bg); }
+.ev-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.next-up-body { padding: clamp(16px, 3vw, 28px); display: flex; flex-direction: column; gap: 6px; }
+.next-up .ev-title { font-size: 1.4rem; }
+.next-up-desc { margin: 4px 0 0; color: var(--muted); }
+.next-up-meta { margin: 4px 0 0; }
+
+.ev-title { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.ev-title a { color: inherit; text-decoration: none; }
+.ev-title a:hover, .ev-title a:focus-visible { text-decoration: underline; }
+.ev-title a span[aria-hidden] { color: var(--muted); font-weight: normal; font-size: 0.85em; }
+.ev-facts { margin: 2px 0 0; color: var(--muted); font-size: 0.875rem; }
+.ev-talk { margin: 4px 0 0; font-size: 0.9rem; font-style: italic; }
+
+.ev-month-heading { margin: 24px 0 4px; font-size: 1rem; }
+.ev-list { list-style: none; margin: 0; padding: 0; }
+.ev-row {
+  display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; align-items: start;
+  padding: 14px 12px 14px 0; border-top: 1px solid var(--border);
+  border-left: 3px solid transparent; padding-left: 12px; scroll-margin-top: 24px;
+}
+.ev-row:not(.is-past) { border-left-color: var(--active); }
+.ev-row.is-next { background: var(--card); }
+.ev-row:target { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ev-date { display: flex; flex-direction: column; align-items: center; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.ev-month { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); white-space: nowrap; }
+.ev-days { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+.ev-side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+/* Past rows are quieter, but still well above 4.5:1 contrast: only the date and title soften. */
+.ev-row.is-past .ev-date, .ev-row.is-past .ev-title { color: var(--muted); }
+.ev-row.is-past .ev-month { color: var(--muted); }
+.ev-row.is-cancelled .ev-title, .card.is-cancelled .ev-title { text-decoration: line-through; }
+
+.status { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.status-next-up { color: var(--active); }
+.status-cancelled, .status-postponed { color: var(--fg); }
+.pill { display: inline-block; background: var(--chip); color: var(--chip-fg); font-size: 0.75rem; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+
+.tiles { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.tile-wrap { display: inline-flex; flex-direction: column; gap: 2px; }
+.tile {
+  display: inline-flex; align-items: baseline; gap: 6px; min-height: 44px; align-items: center;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--card);
+  color: var(--fg); text-decoration: none; font-size: 0.875rem;
+}
+.tile:hover, .tile:focus-visible { border-color: var(--accent); }
+.tile-icon { color: var(--accent); }
+.tile-site { color: var(--muted); font-size: 0.75rem; }
+.tile-archived { font-size: 0.75rem; color: var(--muted); padding-left: 4px; }
+
+.years ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 1.1rem; font-weight: 600; }
+
+/* Scrapbook cards: a loose grid with a slight alternating tilt. */
+.cards { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.card {
+  height: 100%; display: grid; grid-template-rows: 160px auto;
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--card);
+  box-shadow: 0 1px 0 var(--border), 0 8px 24px -16px rgba(0, 0, 0, 0.35);
+  transform: rotate(-0.6deg); transition: transform 200ms ease; scroll-margin-top: 24px;
+}
+.cards > li:nth-child(even) .card { transform: rotate(0.6deg); }
+.cards > li:nth-child(even) .stamp { transform: rotate(3deg); }
+.cards > li .card:hover, .cards > li .card:focus-within, .card:target { transform: none; }
+.card:target { outline: 2px solid var(--accent); }
+.card-cover { position: relative; min-height: 0; }
+.card-cover .ev-art { position: absolute; inset: 0; min-height: 0; }
+.stamp {
+  position: absolute; left: 14px; bottom: -14px; display: flex; flex-direction: column; align-items: center;
+  padding: 6px 10px; line-height: 1.1; border-radius: 8px; background: var(--card); color: var(--fg);
+  border: 1px dashed var(--accent); transform: rotate(-4deg); font-variant-numeric: tabular-nums;
+}
+.stamp span { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+.stamp b { font-size: 1.1rem; }
+.card-body { padding: 26px 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+.card-desc { margin: 6px 0 0; font-size: 0.9rem; }
+.card-meta { margin: 6px 0 0; }
+.groups { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.group h4 { margin: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.group .tiles { margin-top: 4px; }
+.back { margin-top: 40px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .cards > li:nth-child(even) .card { transform: none; transition: none; }
+}
+
+@media (max-width: 640px) {
+  .next-up { grid-template-columns: 1fr; }
+  .ev-art { min-height: 140px; }
+  .ev-row { grid-template-columns: 56px minmax(0, 1fr); }
+  .ev-side { grid-column: 2; flex-direction: row; align-items: center; justify-content: flex-start; }
+  .ev-days { font-size: 1.3rem; }
+  .cards { grid-template-columns: 1fr; }
 }

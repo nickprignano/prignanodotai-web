@@ -1,0 +1,33 @@
+# Settings for the link checks in .github/workflows/. See
+# https://lychee.cli.rs/usage/config/ for every option.
+
+max_concurrency = 8
+max_retries = 3
+retry_wait_time = 5
+timeout = 20
+user_agent = "prignano-link-check (+https://prignano.ai)"
+
+# Remember results for a day, so a rerun doesn't fetch everything again.
+cache = true
+max_cache_age = "1d"
+
+# 999 is LinkedIn's answer to any automated request, whether or not the post
+# exists, so it can't be checked; those links get a look by hand now and then.
+accept = ["200..=299", "999"]
+
+exclude = [
+  '^mailto:',
+  '^https?://localhost',
+  '^https://(www\.)?example\.com',
+  # Cloudflare's own scripts and email protection, not real pages.
+  '/cdn-cgi/',
+  # Instagram, X and Facebook block automated checks like LinkedIn does.
+  '^https://(www\.)?(instagram\.com|x\.com|twitter\.com|facebook\.com)/',
+]
+
+# YouTube shows a normal page even for deleted or private videos. Its oEmbed
+# endpoint answers 404 for a deleted video and 401 for a private one.
+remap = [
+  '^https://(www\.|m\.)?youtube\.com/watch\?v=([A-Za-z0-9_-]+).*$ https://www.youtube.com/oembed?format=json&url=https://www.youtube.com/watch?v=$2',
+  '^https://youtu\.be/([A-Za-z0-9_-]+).*$ https://www.youtube.com/oembed?format=json&url=https://youtu.be/$1',
+]

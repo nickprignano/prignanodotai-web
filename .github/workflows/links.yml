@@ -1,0 +1,65 @@
+name: Link check
+
+# Weekly check of every link on prignano.ai and blog.prignano.ai, plus the
+# links in this repo's event data and the blog's posts. Results go to one
+# rolling issue titled "Link check report": updated in place, reopened when
+# something breaks, closed when everything passes.
+#
+# GitHub pauses scheduled workflows after 60 days with no commits to the
+# repo; any commit (or running this by hand) turns it back on.
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays, 8 or 9 AM Eastern
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency: link-check
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: nickprignano/blog-prignano-ai
+          path: blog
+
+      # If either site is down, every internal link would look dead. Stop
+      # instead; GitHub emails about the failed run.
+      - name: Check both sites are up
+        run: |
+          for url in https://prignano.ai/ https://blog.prignano.ai/; do
+            curl -fsS -o /dev/null --max-time 30 --retry 3 --retry-delay 10 "$url" \
+              || { echo "::error::$url is unreachable, so the link check was skipped"; exit 1; }
+          done
+
+      - name: List pages from the sitemaps
+        id: pages
+        run: echo "list=$(.github/scripts/sitemap-pages.sh https://prignano.ai/sitemap.xml https://blog.prignano.ai/sitemap-index.xml | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: lychee-${{ github.run_id }}
+          restore-keys: lychee-
+
+      - uses: lycheeverse/lychee-action@v2
+        id: lychee
+        with:
+          args: >-
+            --config .github/lychee.toml
+            ${{ steps.pages.outputs.list }}
+            'content/**/*.json'
+            'blog/src/content/**/*.md'
+          output: lychee/report.md
+          fail: false
+          jobSummary: true
+
+      - name: Update the report issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/link-report.sh "${{ steps.lychee.outputs.exit_code }}" lychee/report.md
