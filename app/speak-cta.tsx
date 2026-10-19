@@ -1,12 +1,6 @@
-import { OWNER } from "prignano-theme";
-
-// The "book me to speak" box on the events pages and the resume; the header
-// links to it on every page. The email opens with a
-// short template so invitations arrive with the details needed to answer.
-
-const subject = "Speaking invitation";
-const body = ["Event:", "Date:", "Location (or online):", "Audience and size:", "Topic idea:", "", ""].join("\n");
-const href = `mailto:${OWNER.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// The "book me to speak" box on the events pages and the resume. It opens the
+// contact form on the speaking topic, which prompts for the event details.
+const href = "/contact?topic=speaking";
 
 export default function SpeakCta() {
   return (

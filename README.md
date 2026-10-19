@@ -55,6 +55,35 @@ To show something in the carousel that is neither a repo nor an event (an articl
 
 A malformed entry fails the build with a message naming the entry and field. Remove expired entries whenever convenient; they're already hidden.
 
+## Contact page and form
+
+`/contact` lists Nick's socials (`SOCIALS` in `lib/site.ts`) and has a message form. `/contact?topic=speaking` opens with the speaking topic picked. The form posts to `/api/contact` (`app/api/contact/route.ts`), which emails good messages to Nick through Cloudflare Email Routing. The reply-to is the sender, so answering is just Reply.
+
+Every message goes through, in order:
+
+1. **Same-site check and a rate limit**: 3 messages a minute per IP and per sender address (the `CONTACT_RATE_LIMIT` binding).
+2. **Bot traps**: a hidden honeypot field, and a minimum of 3 seconds between page load and submit.
+3. **[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)**, verified on the server. It's invisible for most people.
+4. **Junk rules** (`lib/contact.ts`): link dumps, SEO and backlink pitches, sales and lead-gen pitches, crypto and money offers, and text written to steer the AI check. These can't be talked out of a verdict.
+5. **An AI check** with [Workers AI](https://developers.cloudflare.com/workers-ai/) (`AI_MODEL` in `lib/contact.ts`). It asks whether a person wrote to Nick in particular, rather than whether the text sounds machine-written, since plenty of real people draft with AI. The message is passed as data the model is told never to obey.
+
+Junk gets the same "sent" answer as a real message, so bots learn nothing, and is logged instead of emailed (Workers & Pages → prignanodotai-web → Observability, search for `"contact":"dropped"`). A message the AI is unsure about, or that arrives while the AI is down, is delivered with `[Check]` in the subject. Every email ends with a "Screening" line saying why it got through.
+
+### Turning it on
+
+The form stays hidden, with an email link in its place, until `turnstileSiteKey` in `lib/site.ts` is set. In the Cloudflare dashboard:
+
+1. **Email → Email Routing** for prignano.ai: under **Destination addresses**, check that the inbox nick@prignano.ai forwards to is listed and **Verified**.
+2. **Turnstile → Add widget**: name it "prignano.ai contact", add the hostname `prignano.ai`, mode **Managed**. Put the **site key** in `lib/site.ts` (it's public).
+3. **Workers & Pages → prignanodotai-web → Settings → Variables and Secrets**, add two **secrets**:
+   - `TURNSTILE_SECRET_KEY`: the widget's secret key.
+   - `CONTACT_TO`: the verified destination address from step 1. It's a secret so no inbox address lives in this public repo.
+4. Deploy, send yourself a message from `/contact`, and send one that should be junk to see it in the logs.
+
+Workers AI and the rate limiter need no setup; their bindings are in `wrangler.jsonc`. The AI check costs a few dozen of the free plan's 10,000 daily Workers AI neurons per message. PR previews have none of these bindings, so the form there answers that it isn't switched on.
+
+Locally, `.dev.vars.example` has Cloudflare's always-pass Turnstile test keys, and `next dev` shows the form with the test site key. Sending is simulated, and there's no AI check locally, so messages show as `ai:unavailable`.
+
 ## Checks and the link checker
 
 - Every PR runs `.github/workflows/check.yml`: typecheck, `npm test`, `npm run check:content` (validates `content/`), and a check that fails only on links in `content/` that are clearly gone (404, 410, a domain that no longer resolves).

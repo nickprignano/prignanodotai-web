@@ -300,3 +300,47 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
   .ev-days { font-size: 1.3rem; }
   .cards { grid-template-columns: 1fr; }
 }
+
+/* Contact: socials and the message form (/contact). */
+.contact { max-width: 920px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
+.contact { --ph-width: 100%; }
+.contact .site-header { margin-bottom: 40px; }
+.contact-head h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; }
+.contact-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+.contact h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 40px 0 12px; }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0 40px; align-items: start; }
+@media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.socials { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.socials a {
+  display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--card); color: var(--fg);
+}
+.socials a:hover, .socials a:focus-visible { border-color: var(--accent); }
+.social-label { font-weight: 600; }
+.social-handle { color: var(--muted); font-size: 0.875rem; overflow-wrap: anywhere; }
+
+.contact-form { display: grid; gap: 14px; }
+.contact-form label { display: grid; gap: 6px; font-size: 0.875rem; font-weight: 600; }
+.contact-form input, .contact-form select, .contact-form textarea {
+  font: inherit; font-weight: normal; font-size: 1rem; width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--card); color: var(--fg);
+}
+.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form input:focus-visible, .contact-form select:focus-visible, .contact-form textarea:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent;
+}
+/* Off screen rather than display: none, which some bots check for. */
+.contact-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.contact-turnstile:empty { display: none; }
+.contact-actions { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+.contact-submit, .contact-again {
+  font: inherit; font-weight: 700; min-height: 44px; padding: 0 22px; border-radius: 999px; cursor: pointer;
+  border: 0; background: var(--accent); color: var(--bg);
+}
+.contact-submit:disabled { opacity: 0.6; cursor: progress; }
+.contact-fine { margin: 0; color: var(--muted); font-size: 0.8rem; }
+.contact-error { margin: 0; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); color: var(--fg); background: var(--card); }
+.contact-sent { padding: 20px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); }
+.contact-sent p { margin: 0 0 8px; }
+.contact-sent-title { font-weight: 700; font-size: 1.1rem; }
