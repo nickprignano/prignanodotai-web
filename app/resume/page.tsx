@@ -37,8 +37,6 @@ export default function Resume() {
         </p>
       </header>
 
-      <SpeakCta />
-
       <section>
         <h2>Experience</h2>
         {resume.experience.map((position) => (
@@ -87,6 +85,8 @@ export default function Resume() {
           </ul>
         </section>
       </div>
+
+      <SpeakCta />
     </main>
   );
 }
