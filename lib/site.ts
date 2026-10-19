@@ -9,7 +9,7 @@ export const SITE = {
   // Cloudflare Turnstile site key for the contact form (Cloudflare →
   // Turnstile → the prignano.ai widget). Public, like the analytics token.
   // Empty hides the form and leaves the email link.
-  turnstileSiteKey: "",
+  turnstileSiteKey: "0x4AAAAAAFb1XVIpzEYjE7C9",
   // Link preview card for LinkedIn, Slack and the like.
   image: { url: "/og.png", width: 1200, height: 630, alt: "Nick Prignano" },
 };
