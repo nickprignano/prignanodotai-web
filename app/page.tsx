@@ -15,6 +15,7 @@ export default async function Home() {
   return (
     <main className="page">
       <SiteHeader current="home" bio={profile?.bio} />
+      <h1 className="sr-only">Projects and events</h1>
 
       {error || slides.length === 0 ? (
         <p className="notice">{error ?? "No public projects yet."}</p>
