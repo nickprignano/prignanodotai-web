@@ -26,6 +26,7 @@ body { line-height: 1.5; }
 .notice { width: var(--slide-w); margin: 0 auto; padding: 16px; border: 1px dashed var(--border); border-radius: 12px; color: var(--muted); align-self: start; }
 
 footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
+footer a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* Carousel */
 .carousel { min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: clamp(10px, 2vh, 20px); }
@@ -107,9 +108,10 @@ footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
   font-size: 1rem; cursor: pointer;
 }
 .controls > button:disabled { opacity: 0.35; cursor: default; }
-.dots { display: flex; gap: 6px; max-width: 50vw; overflow: hidden; }
-.dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: var(--border); cursor: pointer; flex-shrink: 0; transition: width 200ms ease, background 200ms ease; }
-.dot.current { width: 22px; background: var(--accent); }
+.dots { display: flex; gap: 0; max-width: 50vw; overflow: hidden; }
+/* 8px dots inside a 24px hit area (WCAG 2.2 target size). */
+.dot { box-sizing: content-box; width: 8px; height: 8px; padding: 8px; background-clip: content-box; border: 0; border-radius: 999px; background-color: var(--border); cursor: pointer; flex-shrink: 0; transition: width 200ms ease, background-color 200ms ease; }
+.dot.current { width: 22px; background-color: var(--accent); }
 .count { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; min-width: 3.5em; text-align: center; }
 
 
