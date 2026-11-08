@@ -6,12 +6,6 @@
 
 * { box-sizing: border-box; }
 
-/* With Games in the nav, the header links no longer fit beside the name on the
-   narrower pages (/events, /contact, /resume). Keep the name on one line and
-   let the links wrap onto a second, right-aligned row instead. */
-.ph-name { white-space: nowrap; }
-.ph-links { flex-shrink: 1; flex-wrap: wrap; justify-content: flex-end; row-gap: 6px; }
-
 /* Only the projects page is locked to one viewport; /resume scrolls. */
 html:has(.page), html:has(.page) body { height: 100%; overflow: hidden; }
 
