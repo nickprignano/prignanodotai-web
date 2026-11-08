@@ -1,0 +1,50 @@
+[
+  {
+    "id": "pinball",
+    "name": "Pinball",
+    "url": "https://pinball.prignano.ai",
+    "description": "Flippers, bumpers and multiball, right in the browser.",
+    "image": "",
+    "status": "live"
+  },
+  {
+    "id": "space-shooter",
+    "name": "Space Invaders-style shooter",
+    "url": "",
+    "description": "Hold the line against waves of descending invaders.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
+    "id": "flappy",
+    "name": "Flappy-style flyer",
+    "url": "",
+    "description": "Tap to flap through the gaps. One more try.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
+    "id": "battleship",
+    "name": "Battleship",
+    "url": "",
+    "description": "Hide your fleet and call your shots.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
+    "id": "chess",
+    "name": "Chess",
+    "url": "https://chess.prignano.ai",
+    "description": "A quiet game of chess.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
+    "id": "wargames",
+    "name": "WarGames-style simulator",
+    "url": "",
+    "description": "Shall we play a game?",
+    "image": "",
+    "status": "hidden"
+  }
+]

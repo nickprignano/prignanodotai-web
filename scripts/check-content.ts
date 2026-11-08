@@ -5,6 +5,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { loadEvents } from "../lib/events.ts";
 import { parseFeatured } from "../lib/featured.ts";
+import { parseGames } from "../lib/games.ts";
 
 const problems: string[] = [];
 const dir = "content/events";
@@ -47,6 +48,12 @@ try {
   parseFeatured(JSON.parse(readFileSync("content/featured.json", "utf8")));
 } catch (e) {
   problems.push(e instanceof SyntaxError ? `content/featured.json: not valid JSON (${e.message})` : (e as Error).message);
+}
+
+try {
+  parseGames(JSON.parse(readFileSync("content/games.json", "utf8")));
+} catch (e) {
+  problems.push(e instanceof SyntaxError ? `content/games.json: not valid JSON (${e.message})` : (e as Error).message);
 }
 
 if (problems.length > 0) {

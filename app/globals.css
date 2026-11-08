@@ -410,3 +410,28 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
   .spotlight-art { min-height: 160px; }
   .countdown-units li { min-width: 0; flex: 1; }
 }
+
+/* Games (/games): one card per live game in content/games.json. Reuses the
+   /projects page and grid; Play opens the game's own subdomain. */
+.install-tip {
+  margin: 24px 0 32px; padding: 14px 18px; max-width: 72ch;
+  border: 1px solid var(--border); border-radius: 12px; background: var(--card);
+}
+.install-tip h2 { margin: 0 0 4px; font-size: 0.95rem; }
+.install-tip p { margin: 0; color: var(--muted); font-size: 0.925rem; }
+.install-tip b { color: var(--fg); font-weight: 600; }
+.game-art { background: var(--art-bg); }
+.game-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.game-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; }
+.game-body h2 { margin: 0; font-size: 1.15rem; line-height: 1.25; letter-spacing: -0.01em; }
+.game-body p { margin: 0 0 8px; color: var(--muted); font-size: 0.925rem; }
+.game-play {
+  margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px;
+  border-radius: 999px; background: var(--accent); color: var(--bg); font-weight: 700; text-decoration: none;
+}
+.game-play:hover, .game-play:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+@media (max-width: 640px) {
+  .projects.games { padding-left: 16px; padding-right: 16px; }
+  .game-play { align-self: stretch; justify-content: center; }
+}
