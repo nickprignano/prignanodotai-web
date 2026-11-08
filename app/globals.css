@@ -6,6 +6,12 @@
 
 * { box-sizing: border-box; }
 
+/* With Games in the nav, the header links no longer fit beside the name on the
+   narrower pages (/events, /contact, /resume). Keep the name on one line and
+   let the links wrap onto a second, right-aligned row instead. */
+.ph-name { white-space: nowrap; }
+.ph-links { flex-shrink: 1; flex-wrap: wrap; justify-content: flex-end; row-gap: 6px; }
+
 /* Only the projects page is locked to one viewport; /resume scrolls. */
 html:has(.page), html:has(.page) body { height: 100%; overflow: hidden; }
 
@@ -426,7 +432,7 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 .game-body h2 { margin: 0; font-size: 1.15rem; line-height: 1.25; letter-spacing: -0.01em; }
 .game-body p { margin: 0 0 8px; color: var(--muted); font-size: 0.925rem; }
 .game-play {
-  margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px;
+  margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 22px;
   border-radius: 999px; background: var(--accent); color: var(--bg); font-weight: 700; text-decoration: none;
 }
 .game-play:hover, .game-play:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }

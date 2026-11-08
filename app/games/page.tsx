@@ -57,7 +57,7 @@ export default function Games() {
                 <p>{g.description}</p>
                 <a className="game-play" href={g.url} target="_blank" rel="noopener">
                   Play<span className="sr-only"> {g.name} (opens in a new tab)</span>
-                  <span aria-hidden> ↗</span>
+                  <span aria-hidden>↗</span>
                 </a>
               </div>
             </li>
