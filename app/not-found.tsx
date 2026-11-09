@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteHeader from "./site-header";
+import SiteFooter from "./site-footer";
 
 export const metadata: Metadata = {
   title: "Page not found — Nick Prignano",
@@ -15,6 +16,7 @@ export default function NotFound() {
         That page doesn&apos;t exist. <a href="/">Back to the projects</a>, or try the{" "}
         <a href="https://blog.prignano.ai/">blog</a>.
       </p>
+      <SiteFooter />
     </main>
   );
 }

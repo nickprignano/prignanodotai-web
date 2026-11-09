@@ -1,7 +1,9 @@
-/* Colors, base type and the header come from prignano-theme (imported in
-   app/layout.tsx). This file holds what is specific to this site. */
+/* Colors, base type, the page width, the header and the footer come from
+   prignano-theme (imported in app/layout.tsx). This file holds what is
+   specific to this site. Every page is var(--page-width) wide, so the header,
+   headings, notes, cards and grids all share the same left and right edges. */
 :root {
-  --slide-w: min(1080px, calc(100vw - 96px));
+  --slide-w: var(--page-width);
 }
 
 * { box-sizing: border-box; }
@@ -21,12 +23,10 @@ body { line-height: 1.5; }
   padding: clamp(14px, 3vh, 32px) 0 clamp(10px, 2vh, 20px);
 }
 
-.page { --ph-width: var(--slide-w); }
-
 .notice { width: var(--slide-w); margin: 0 auto; padding: 16px; border: 1px dashed var(--border); border-radius: 12px; color: var(--muted); align-self: start; }
 
-footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
-footer a { text-decoration: underline; text-underline-offset: 2px; }
+.page > footer { text-align: center; color: var(--muted); font-size: 0.8rem; }
+.page > footer a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* Carousel */
 .carousel { min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: clamp(10px, 2vh, 20px); }
@@ -121,13 +121,12 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* Narrow screens: image on top, text below, both inside the viewport. */
 @media (max-width: 760px) {
-  :root { --slide-w: calc(100vw - 32px); }
   .track { gap: 12px; }
   .slide { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; }
   .info { gap: 8px; }
   .desc { -webkit-line-clamp: 4; font-size: 0.925rem; }
   .dots { display: none; }
-  footer { display: none; }
+  .page > footer { display: none; }
 }
 
 @media (max-height: 760px) and (min-width: 761px) {
@@ -139,8 +138,7 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 }
 
 /* Resume */
-.resume { max-width: 820px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
-.resume { --ph-width: 100%; }
+.resume { width: var(--page-width); margin: 0 auto; padding-top: clamp(20px, 5vh, 48px); }
 .resume .site-header { margin-bottom: 40px; }
 .not-found h1 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -0.02em; }
 .print {
@@ -148,7 +146,7 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
   border: 1px solid var(--border); background: var(--card); color: var(--fg);
 }
 .resume-head h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; }
-.resume-head p { margin: 6px 0 0; }
+.resume-head p { margin: 6px 0 0; max-width: var(--measure); }
 .resume-title { color: var(--muted); }
 .resume-links { display: flex; align-items: center; gap: 16px; }
 .resume h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 40px 0 12px; }
@@ -157,12 +155,12 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 .where, .when { color: var(--muted); font-weight: normal; font-size: 0.875rem; }
 .role + .role { margin-top: 12px; }
 .role-head { margin: 0; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.role-summary { margin: 2px 0 0; color: var(--muted); }
+.role-summary { margin: 2px 0 0; color: var(--muted); max-width: var(--measure); }
 
 @media print {
   .speak { display: none !important; }
   :root { --bg: #fff; --fg: #111418; --muted: #4a525c; --card: #fff; --border: #d5d9de; --chip: #fff; --chip-fg: #111418; }
-  .resume { padding: 0; max-width: none; }
+  .resume { padding: 0; width: auto; }
   .resume h2 { margin-top: 24px; }
   .topics li { border: 1px solid var(--border); }
   a { color: var(--fg); }
@@ -175,11 +173,10 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 }
 .muted { color: var(--muted); }
 
-.events { max-width: 920px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
-.events { --ph-width: 100%; }
+.events { width: var(--page-width); margin: 0 auto; padding-top: clamp(20px, 5vh, 48px); }
 .events .site-header { margin-bottom: 40px; }
 .events-head h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; }
-.events-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+.events-head p { margin: 6px 0 0; color: var(--muted); }
 .eyebrow { margin: 0 0 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .events-head .eyebrow { color: var(--muted); }
 .section-heading { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 48px 0 8px; }
@@ -301,11 +298,10 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 }
 
 /* Contact: socials and the message form (/contact). */
-.contact { max-width: 920px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
-.contact { --ph-width: 100%; }
+.contact { width: var(--page-width); margin: 0 auto; padding-top: clamp(20px, 5vh, 48px); }
 .contact .site-header { margin-bottom: 40px; }
 .contact-head h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; }
-.contact-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+.contact-head p { margin: 6px 0 0; color: var(--muted); }
 .contact h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 40px 0 12px; }
 .contact-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0 40px; align-items: start; }
 @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
@@ -361,11 +357,10 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* Projects: every carousel item in one scrolling list (/projects), with the
    nominated item from content/featured.json in a box at the top. */
-.projects { max-width: 1080px; margin: 0 auto; padding: clamp(20px, 5vh, 48px) 24px 64px; }
-.projects { --ph-width: 100%; }
+.projects { width: var(--page-width); margin: 0 auto; padding-top: clamp(20px, 5vh, 48px); }
 .projects .site-header { margin-bottom: 40px; }
 .projects-head h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; }
-.projects-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+.projects-head p { margin: 6px 0 0; color: var(--muted); }
 
 .spotlight {
   margin-top: 32px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -432,6 +427,5 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 .game-play:hover, .game-play:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
 @media (max-width: 640px) {
-  .projects.games { padding-left: 16px; padding-right: 16px; }
   .game-play { align-self: stretch; justify-content: center; }
 }

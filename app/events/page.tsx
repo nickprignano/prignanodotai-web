@@ -4,6 +4,7 @@ import { eventJsonLd, isOver, jsonLdScript, type EventItem } from "@/lib/events"
 import { today } from "@/lib/items";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../site-header";
+import SiteFooter from "../site-footer";
 import EventArt from "./event-art";
 import SpeakCta from "../speak-cta";
 import { EventFacts, EventRow, EventTitle, LinkRow, RolePill } from "./event-parts";
@@ -128,6 +129,7 @@ export default function Events() {
           dangerouslySetInnerHTML={{ __html: jsonLdScript(shown.map((e) => eventJsonLd(e, { name: SITE.name, url: SITE.url }))) }}
         />
       )}
+      <SiteFooter />
     </main>
   );
 }

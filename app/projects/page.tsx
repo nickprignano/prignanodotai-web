@@ -8,6 +8,7 @@ import { Screenshot } from "../carousel";
 import EventArt from "../events/event-art";
 import ProjectInfo from "../project-info";
 import SiteHeader from "../site-header";
+import SiteFooter from "../site-footer";
 import FeaturedBox from "./featured-box";
 
 const title = `Projects — ${SITE.name}`;
@@ -61,6 +62,7 @@ export default async function Projects() {
           </ul>
         </>
       )}
+      <SiteFooter />
     </main>
   );
 }

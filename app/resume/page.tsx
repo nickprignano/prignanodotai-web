@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { resume } from "@/lib/resume";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../site-header";
+import SiteFooter from "../site-footer";
 import SpeakCta from "../speak-cta";
 import PrintButton from "./print-button";
 
@@ -69,6 +70,7 @@ export default function Resume() {
       </section>
 
       <SpeakCta />
+      <SiteFooter />
     </main>
   );
 }

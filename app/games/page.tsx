@@ -4,6 +4,7 @@ import { liveGames, parseGames } from "@/lib/games";
 import { SITE } from "@/lib/site";
 import EventArt from "../events/event-art";
 import SiteHeader from "../site-header";
+import SiteFooter from "../site-footer";
 
 const title = `Games — ${SITE.name}`;
 const description = "Small browser games by Nick Prignano. Free, no sign-up, no tracking, and installable on your phone.";
@@ -64,6 +65,7 @@ export default function Games() {
           ))}
         </ul>
       )}
+      <SiteFooter />
     </main>
   );
 }
