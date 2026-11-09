@@ -81,6 +81,14 @@ To give one item special attention (asking for help, a release coming up), nomin
 
 The item stays in the grid below too. If `item` matches nothing (a typo, an expired event), the box is simply left out and the server logs a warning; `npm run check:content` checks the file's shape.
 
+## Games page
+
+**/games** shows one card for each entry in `content/games.json` whose `status` is `live`, in file order. Each game lives in its own repo and on its own subdomain, named after its `id` (`chess` is `chess.prignano.ai`); this site only links to it.
+
+- A new game goes in as `hidden` with an empty `url`, so the PR link check doesn't trip on a domain that isn't up yet.
+- Launching it is the last step of the game's Cloudflare setup: set `url` and change `status` to `live` in one PR here.
+- If that step is missed, the weekly link check fails with "*id*.prignano.ai is up but hidden on /games", because it looks for each hidden game's app manifest on its subdomain.
+
 ## Contact page and form
 
 `/contact` lists Nick's socials (`SOCIALS` in `lib/site.ts`) and has a message form. `/contact?topic=speaking` opens with the speaking topic picked. The form posts to `/api/contact` (`app/api/contact/route.ts`), which emails good messages to Nick through Cloudflare Email Routing. The reply-to is the sender, so answering is just Reply.

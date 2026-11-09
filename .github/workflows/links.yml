@@ -63,3 +63,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: .github/scripts/link-report.sh "${{ steps.lychee.outputs.exit_code }}" lychee/report.md
+
+      # A hidden game whose subdomain already serves its app manifest has
+      # launched without its card on /games. Fail the run, which emails the
+      # owner, so its url and status get set in content/games.json. A game's
+      # id is its subdomain.
+      - name: Check no launched game is still hidden
+        run: |
+          launched=""
+          for id in $(jq -r '.[] | select(.status == "hidden") | .id' content/games.json); do
+            if curl -fs -o /dev/null --max-time 20 "https://$id.prignano.ai/manifest.webmanifest"; then
+              echo "::error::$id.prignano.ai is up but hidden on /games: in content/games.json, set its url and status live"
+              launched=1
+            fi
+          done
+          [ -z "$launched" ]

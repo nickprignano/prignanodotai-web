@@ -1,8 +1,10 @@
 import { reader } from "./content.ts";
 
 // The cards on /games come from content/games.json, one entry per game. Each
-// game lives on its own subdomain; this site only links to it. "hidden" keeps
-// a game off the page until it's ready, so launching one is a one-word edit.
+// game lives on its own subdomain, named after its id; this site only links to
+// it. "hidden" keeps a game off the page until it's ready; launching one means
+// setting its url and status live. The weekly link check flags a hidden game
+// whose subdomain is already up.
 
 export const GAME_STATUSES = ["live", "hidden"] as const;
 
