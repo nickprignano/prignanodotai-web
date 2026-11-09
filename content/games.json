@@ -8,10 +8,26 @@
     "status": "live"
   },
   {
-    "id": "space-shooter",
-    "name": "Space Invaders-style shooter",
+    "id": "chess",
+    "name": "Chess",
+    "url": "https://chess.prignano.ai",
+    "description": "Play the computer at your level, get hints from a coach, or play a friend online with a room code.",
+    "image": "",
+    "status": "live"
+  },
+  {
+    "id": "zero-sum",
+    "name": "Zero Sum",
+    "url": "https://zero-sum.prignano.ai",
+    "description": "Dial in to an old green-screen computer and get through a standoff without anyone launching.",
+    "image": "",
+    "status": "live"
+  },
+  {
+    "id": "infinite-recursion",
+    "name": "Infinite Recursion",
     "url": "",
-    "description": "Hold the line against waves of descending invaders.",
+    "description": "A fixed shooter where the swarm learns your habits while you learn its.",
     "image": "",
     "status": "hidden"
   },
@@ -32,18 +48,10 @@
     "status": "hidden"
   },
   {
-    "id": "chess",
-    "name": "Chess",
-    "url": "https://chess.prignano.ai",
-    "description": "A quiet game of chess.",
-    "image": "",
-    "status": "hidden"
-  },
-  {
-    "id": "wargames",
-    "name": "WarGames-style simulator",
+    "id": "payoff",
+    "name": "Payoff",
     "url": "",
-    "description": "Shall we play a game?",
+    "description": "Bite-size game theory lessons, with tiny games against bots.",
     "image": "",
     "status": "hidden"
   }

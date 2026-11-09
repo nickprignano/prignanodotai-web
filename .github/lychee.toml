@@ -23,9 +23,6 @@ exclude = [
   '/cdn-cgi/',
   # Instagram, X and Facebook block automated checks like LinkedIn does.
   '^https://(www\.)?(instagram\.com|x\.com|twitter\.com|facebook\.com)/',
-  # Hidden games in content/games.json whose subdomain isn't up yet. Remove a
-  # line when that game goes live, so its link gets checked again.
-  '^https://chess\.prignano\.ai',
 ]
 
 # YouTube shows a normal page even for deleted or private videos. Its oEmbed
