@@ -414,7 +414,7 @@ footer a { text-decoration: underline; text-underline-offset: 2px; }
 /* Games (/games): one card per live game in content/games.json. Reuses the
    /projects page and grid; Play opens the game's own subdomain. */
 .install-tip {
-  margin: 24px 0 32px; padding: 14px 18px; max-width: 72ch;
+  margin: 24px 0 32px; padding: 14px 18px;
   border: 1px solid var(--border); border-radius: 12px; background: var(--card);
 }
 .install-tip h2 { margin: 0 0 4px; font-size: 0.95rem; }
