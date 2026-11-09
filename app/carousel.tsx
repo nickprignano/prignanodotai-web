@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { pick } from "prignano-theme/art/index.js";
 import { languageColor } from "@/lib/format";
 import type { Slide } from "@/lib/portfolio";
 import ProjectArt from "./project-art";
@@ -14,6 +15,8 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
   const [index, setIndex] = useState(0);
   const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0, 1]));
   const wheelLock = useRef(false);
+  // Each slide's art style: its own, unless the slide before has the same one.
+  const styles = useMemo(() => pick(slides.map((s) => s.seed)), [slides]);
 
   const goTo = useCallback(
     (i: number) => {
@@ -101,6 +104,7 @@ export default function Carousel({ slides }: { slides: Slide[] }) {
               <ProjectArt
                 seed={item.seed}
                 color={item.color ?? (item.language ? languageColor(item.language) : null)}
+                style={styles[i]}
                 animate={i === index}
               />
               {item.image && loaded.has(i) && <Screenshot src={item.image} />}

@@ -6,6 +6,7 @@ import { today } from "@/lib/items";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../../site-header";
 import EventArt from "../event-art";
+import { pick } from "prignano-theme/art/index.js";
 import SpeakCta from "../../speak-cta";
 import { EventFacts, EventTitle, LinkGroups, RolePill, statusLabel } from "../event-parts";
 
@@ -54,6 +55,7 @@ export default async function YearArchive({ params }: Params) {
   if (!/^\d{4}$/.test(year)) notFound();
   if (year >= today().slice(0, 4)) redirect("/events");
   const events = eventsIn(year);
+  const styles = pick(events.map((e) => e.id));
   if (events.length === 0) notFound();
 
   return (
@@ -69,13 +71,13 @@ export default async function YearArchive({ params }: Params) {
       </header>
 
       <ol className="cards">
-        {events.map((e) => {
+        {events.map((e, i) => {
           const status = statusLabel(e, true, false);
           return (
             <li key={e.id}>
               <article id={e.id} className={e.status === "cancelled" ? "card is-cancelled" : "card"}>
                 <div className="card-cover">
-                  <EventArt seed={e.id} />
+                  <EventArt seed={e.id} style={styles[i]} />
                   <span className="stamp" aria-hidden>
                     <span>{dateBlock(e).month}</span>
                     <b>{dateBlock(e).days}</b>

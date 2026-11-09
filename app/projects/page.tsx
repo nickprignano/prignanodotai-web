@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pick } from "prignano-theme/art/index.js";
 import featuredFile from "@/content/featured.json";
 import { findFeatured, parseFeatured } from "@/lib/featured";
 import { languageColor } from "@/lib/format";
@@ -29,6 +30,8 @@ const featured = parseFeatured(featuredFile);
 export default async function Projects() {
   const { profile, slides, error } = await loadPortfolio();
   const spotlight = featured ? findFeatured(slides, featured.item) : null;
+  // One art style per card; neighbours never share one.
+  const styles = pick(slides.map((s) => s.seed));
   if (featured && !spotlight && !error) console.warn(`content/featured.json: no item matches "${featured.item}"`);
 
   return (
@@ -48,10 +51,10 @@ export default async function Projects() {
         <>
           <h2 className="section-heading">All projects ({slides.length})</h2>
           <ul className="project-grid">
-            {slides.map((item) => (
+            {slides.map((item, i) => (
               <li key={item.id} className="project-card">
                 <a className="project-card-art" href={item.artHref} tabIndex={-1} aria-hidden>
-                  <EventArt seed={item.seed} color={item.color ?? (item.language ? languageColor(item.language) : null)}>
+                  <EventArt seed={item.seed} color={item.color ?? (item.language ? languageColor(item.language) : null)} style={styles[i]}>
                     {item.image && <Screenshot src={item.image} lazy />}
                   </EventArt>
                 </a>
