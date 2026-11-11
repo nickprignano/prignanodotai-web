@@ -54,5 +54,13 @@
     "description": "Bite-size game theory lessons, with tiny games against bots.",
     "image": "",
     "status": "hidden"
+  },
+  {
+    "id": "drops",
+    "name": "Drops",
+    "url": "",
+    "description": "Drop discs and get four in a row. Play the computer, or a friend online with a room code.",
+    "image": "",
+    "status": "hidden"
   }
 ]
