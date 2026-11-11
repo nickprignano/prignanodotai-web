@@ -54,5 +54,13 @@
     "description": "Bite-size game theory lessons, with tiny games against bots.",
     "image": "",
     "status": "hidden"
+  },
+  {
+    "id": "cards",
+    "name": "Cards",
+    "url": "",
+    "description": "Heads-up poker against the computer or a friend, with an odds helper that teaches the math. Play money only, for 13 and up.",
+    "image": "",
+    "status": "hidden"
   }
 ]
