@@ -26,10 +26,10 @@
   {
     "id": "infinite-recursion",
     "name": "Infinite Recursion",
-    "url": "",
+    "url": "https://infinite-recursion.prignano.ai",
     "description": "A fixed shooter where the swarm learns your habits while you learn its.",
     "image": "",
-    "status": "hidden"
+    "status": "live"
   },
   {
     "id": "flappy",
@@ -52,6 +52,22 @@
     "name": "Payoff",
     "url": "",
     "description": "Bite-size game theory lessons, with tiny games against bots.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
+    "id": "drops",
+    "name": "Drops",
+    "url": "",
+    "description": "Drop discs and get four in a row. Play the computer, or a friend online with a room code.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
+    "id": "cards",
+    "name": "Cards",
+    "url": "",
+    "description": "Heads-up poker against the computer or a friend, with an odds helper that teaches the math. Play money only, for 13 and up.",
     "image": "",
     "status": "hidden"
   }

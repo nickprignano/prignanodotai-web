@@ -3,6 +3,7 @@ import gamesFile from "@/content/games.json";
 import { liveGames, parseGames } from "@/lib/games";
 import { SITE } from "@/lib/site";
 import EventArt from "../events/event-art";
+import { pick } from "prignano-theme/art/index.js";
 import SiteHeader from "../site-header";
 import SiteFooter from "../site-footer";
 
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 // Games live in their own repos and subdomains; this page only links to them.
 // Cards come from content/games.json; entries with status "hidden" stay off it.
 const games = liveGames(parseGames(gamesFile));
+const styles = pick(games.map((g) => g.id));
 
 export default function Games() {
   return (
@@ -43,14 +45,14 @@ export default function Games() {
         <p className="notice-inline">No games yet. Check back soon.</p>
       ) : (
         <ul className="project-grid game-grid">
-          {games.map((g) => (
+          {games.map((g, i) => (
             <li key={g.id} className="project-card game-card">
               <div className="project-card-art game-art">
                 {g.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={g.image} alt="" loading="lazy" decoding="async" />
                 ) : (
-                  <EventArt seed={g.id} />
+                  <EventArt seed={g.id} style={styles[i]} />
                 )}
               </div>
               <div className="game-body">

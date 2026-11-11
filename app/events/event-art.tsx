@@ -9,11 +9,13 @@ import ProjectArt from "../project-art";
 export default function EventArt({
   seed,
   color = null,
+  style,
   always = false,
   children,
 }: {
   seed: string;
   color?: string | null;
+  style?: string;
   always?: boolean;
   children?: ReactNode;
 }) {
@@ -25,7 +27,7 @@ export default function EventArt({
       onPointerEnter={() => setActive(true)}
       onPointerLeave={() => setActive(false)}
     >
-      <ProjectArt seed={seed} color={color} animate={always || active} />
+      <ProjectArt seed={seed} color={color} style={style} animate={always || active} />
       {children}
     </div>
   );
