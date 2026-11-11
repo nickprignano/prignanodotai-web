@@ -26,10 +26,10 @@
   {
     "id": "infinite-recursion",
     "name": "Infinite Recursion",
-    "url": "",
+    "url": "https://infinite-recursion.prignano.ai",
     "description": "A fixed shooter where the swarm learns your habits while you learn its.",
     "image": "",
-    "status": "hidden"
+    "status": "live"
   },
   {
     "id": "flappy",
