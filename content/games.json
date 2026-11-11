@@ -64,6 +64,14 @@
     "status": "hidden"
   },
   {
+    "id": "loopback",
+    "name": "Loopback",
+    "url": "",
+    "description": "Sparks dodge your head, so loop your body around them to catch them.",
+    "image": "",
+    "status": "hidden"
+  },
+  {
     "id": "cards",
     "name": "Cards",
     "url": "",
