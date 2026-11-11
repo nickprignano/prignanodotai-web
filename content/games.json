@@ -32,10 +32,10 @@
     "status": "live"
   },
   {
-    "id": "flappy",
-    "name": "Flappy-style flyer",
+    "id": "dystopia",
+    "name": "Dystopia",
     "url": "",
-    "description": "Tap to flap through the gaps. One more try.",
+    "description": "Race a swarm that learns to fly: tap to steer a toy drone between street cameras that watch you.",
     "image": "",
     "status": "hidden"
   },
