@@ -62,5 +62,13 @@
     "description": "Drop discs and get four in a row. Play the computer, or a friend online with a room code.",
     "image": "",
     "status": "hidden"
+  },
+  {
+    "id": "cards",
+    "name": "Cards",
+    "url": "",
+    "description": "Heads-up poker against the computer or a friend, with an odds helper that teaches the math. Play money only, for 13 and up.",
+    "image": "",
+    "status": "hidden"
   }
 ]
