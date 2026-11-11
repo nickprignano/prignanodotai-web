@@ -78,5 +78,13 @@
     "description": "Swipe to slice the potatoes, and keep the hot potato in the air.",
     "image": "",
     "status": "hidden"
+  },
+  {
+    "id": "fast-path",
+    "name": "Fast Path",
+    "url": "",
+    "description": "Race five computer rivals in 3D, each named after the way it drives.",
+    "image": "",
+    "status": "hidden"
   }
 ]
