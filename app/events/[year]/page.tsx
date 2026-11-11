@@ -5,6 +5,7 @@ import { dateBlock, eventJsonLd, jsonLdScript, place, type EventItem } from "@/l
 import { today } from "@/lib/items";
 import { SITE } from "@/lib/site";
 import SiteHeader from "../../site-header";
+import SiteFooter from "../../site-footer";
 import EventArt from "../event-art";
 import { pick } from "prignano-theme/art/index.js";
 import SpeakCta from "../../speak-cta";
@@ -110,6 +111,7 @@ export default async function YearArchive({ params }: Params) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript(events.map((e) => eventJsonLd(e, { name: SITE.name, url: SITE.url }))) }}
       />
+      <SiteFooter />
     </main>
   );
 }

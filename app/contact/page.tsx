@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE, SOCIALS } from "@/lib/site";
 import SiteHeader from "../site-header";
+import SiteFooter from "../site-footer";
 import ContactForm from "./contact-form";
 import EmailCard from "./email-card";
 import SocialIcon from "./social-icon";
@@ -57,6 +58,7 @@ export default function Contact() {
           )}
         </section>
       </div>
+      <SiteFooter />
     </main>
   );
 }
