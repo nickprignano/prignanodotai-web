@@ -32,7 +32,7 @@ test("parses a good submission", () => {
 test("rejects bad fields and strips header injection", () => {
   assert.equal(parseSubmission(form({ name: "" })).ok, false);
   assert.equal(parseSubmission(form({ email: "not-an-email" })).ok, false);
-  assert.equal(parseSubmission(form({ email: "a@b.com\r\nBcc: x@y.com" })).ok, false);
+  assert.equal(parseSubmission(form({ email: "a@example.com\r\nBcc: x@example.org" })).ok, false);
   assert.equal(parseSubmission(form({ message: "hi" })).ok, false);
   assert.equal(parseSubmission(form({ message: "x".repeat(5001) })).ok, false);
   const r = parseSubmission(form({ name: "Ada\r\nBcc: evil@example.com", topic: "nope" }));
